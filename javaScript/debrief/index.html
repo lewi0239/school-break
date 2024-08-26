@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debrief Level One - Two</title>
+    <link rel="stylesheet" href="./style.css" />
+    <!-- Corrected CSS file reference -->
+  </head>
+  <body>
+    <!--mph to kmh-->
+    <h2>MPH/KMH</h2>
+    <form id="conversionForm">
+      <label for="kmh">kmh:</label>
+      <input type="number" id="kmh" name="kmh" /><br /><br />
+      <label for="mph">mph:</label>
+      <input type="number" id="mph" name="mph" /><br /><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <!--Yards to feet conversion -->
+    <h2>Yards/Feet Conversion</h2>
+    <form id="lengthConversionForm">
+      <label for="conversionLength">Convert:</label>
+      <select id="conversionLength" name="conversionLength">
+        <option value="yards-feet">Yards to Feet</option>
+        <option value="feet-yards">Feet to Yards</option>
+      </select>
+      <br /><br />
+
+      <label for="inputLength">Enter Length:</label>
+      <input type="number" name="inputLength" id="inputLength" required />
+      <br /><br />
+
+      <label for="outputLength">Converted Length:</label>
+      <input type="number" name="outputLength" id="outputLength" readonly />
+      <br /><br />
+
+      <input type="submit" value="Convert" />
+    </form>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
