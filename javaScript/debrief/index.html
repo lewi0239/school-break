@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Debrief Level One - Two</title>
     <link rel="stylesheet" href="./style.css" />
-    <!-- Corrected CSS file reference -->
   </head>
   <body>
     <!--mph to kmh-->
@@ -37,6 +36,23 @@
       <br /><br />
 
       <input type="submit" value="Convert" />
+    </form>
+
+    <h2>Canadian to USD pegged at 1.337</h2>
+    <form id="fx">
+      <label for="fxConversion">Convert CAD/USD</label>
+      <select id="fxConversion" name="fxConversion">
+        <option value="cadTOusd">CAD/USD</option>
+        <option value="usdTOcad">USD/CAD</option>
+      </select>
+
+      <label for="inputcad">Enter Canadian Dollars</label>
+      <input type="number" name="inputcad" id="inputcad" required />
+
+      <label for="inputusd">Converted USD Amount</label>
+      <input type="number" name="inputusd" id="inputusd" readonly />
+
+      <input type="submit" value="getFX" />
     </form>
 
     <script src="./app.js"></script>

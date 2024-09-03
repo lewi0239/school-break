@@ -12,6 +12,7 @@ function init() {
   document
     .getElementById("lengthConversionForm")
     .addEventListener("submit", handleLengthConversion);
+  document.getElementById("fx").addEventListener("submit", handleFX);
 }
 
 function convertMPHToKMH(mph = 0, conversionFactor = 1.60934) {
@@ -22,6 +23,16 @@ function convertMPHToKMH(mph = 0, conversionFactor = 1.60934) {
 function convertKMHToMPH(kmh = 0, conversionFactor = 1.60934) {
   let convertSpeedToMPH = kmh / conversionFactor;
   return Math.floor(convertSpeedToMPH);
+}
+
+function convertFXUSD(USD = 0, fxFactor = 1.337) {
+  let convertMoneyToCAD = USD * fxFactor;
+  return convertMoneyToCAD;
+}
+
+function convertFXCAD(CAD = 0, fxFactor = 1.337) {
+  let convertMoneyToUSD = CAD / fxFactor;
+  return convertMoneyToUSD;
 }
 
 function handleSpeedConversion(ev) {
@@ -71,6 +82,22 @@ function handleLengthConversion(ev) {
 
   // Set the converted length in the output field
   document.getElementById("outputLength").value = convertedLength;
+}
+
+function handleFX(ev) {
+  ev.preventDefault();
+
+  let fxType = document.getElementById("fxConversion").value;
+  let fxInput = parseFloat(document.getElementById("inputcad").value);
+  let convertedAmount = 0;
+
+  if (fxType === "cadTOusd") {
+    convertedAmount = convertFXUSD(fxInput);
+  } else if (fxType === "usdTOcad") {
+    convertedAmount = convertFXCAD(fxInput);
+  }
+
+  document.getElementById("inputusd").value = convertedAmount;
 }
 
 document.addEventListener("DOMContentLoaded", init);
