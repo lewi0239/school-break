@@ -174,3 +174,53 @@ to the new.target keyword
 Arrow functions cannot use yield within their body and cannot be created as geneerator functions
 
 */
+const f4 = function (num) {
+  return num + 2;
+};
+
+const f4Arrow = (num) => {
+  return num + 2;
+};
+
+const f4shrtArrow = (num) => num + 2;
+
+const f4noArrg = () => 1 + 2;
+
+/*
+Variable Scope and Hoisting:
+Scope is a term used to describe where a variable is visible (can be accessed from). With either 
+let or const we have the same options for scope. A variable can be in the global scope or in block scope
+A block scope is created whereever you write {}. Inside the curly braces and does not exist outside them.
+
+Functions all (except some arrow functions) have a set of curly braces. So, functions all have their owb block
+scope. There can be other control structures like if statements or loops that also create blocks. Each of these 
+blocks is a new scope to declare variables.
+
+Variables that are declared outside of any function are said to be in the global scope. They are visible anywhere in your code.
+
+Hositing is an effect that happens to variables and functions in JavaScrip when the script is read for the 
+first time by the JavaScript engine. When you run a script, it is actually being read twice. One to identify
+all the functions and variables and determine their scope, and a sceond time to execute the code.
+
+Variable declarations are idenftied with the first pass. The exitence of the variable is hoisted to the top
+of their scope. They cant be used fro anywhere but the JavaScript engine is aware of their existence
+When you get to the line that declares the variable the default undefined value is assigned to the variable
+
+So, function expressions can be assigned to variables. The expressions itself does NOT get hoisted. The 
+Variable name is what gets hoiste o the top of its scope.
+
+
+
+*/
+
+let getMyCarID = 000123;
+
+function displayId(getMyCarID) {
+  let p = document.createElement("p");
+
+  p.document.textContent = `<p>${getMyCarID}</p>`;
+
+  document.body.appendChild(p);
+}
+
+displayId(getMyCarID);
