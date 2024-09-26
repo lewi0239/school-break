@@ -212,6 +212,57 @@ Variable name is what gets hoiste o the top of its scope.
 
 
 */
+let personName = "Bree"; //global variable
+
+function fn1() {
+  let age = 25; //block scoped and visible anywhere inside this function
+  if (age > 17) {
+    let isAdulting; //block scoped inside this if statement
+    isAdulting = true;
+    // name, age, and isAdulting are all visible here
+  }
+  //name and age are visible here, but NOT isAdulting
+}
+
+/*
+If statements are a common construcuct in most programming languages. Simply put, they are a way to let your program make decisions based on yes - no questions
+*/
+
+//if (x == 5) {
+//notie the two equal signs
+//}
+
+//if (x > 5) {
+//do something
+//} else {
+// the condition was false
+// run this code
+///}
+
+/*
+Two vs. Three equal signs:
+Two equal signs means we are comparing the values of the two operands
+
+There is another comparison operator, three equsls signs. This means that we are comparing the values of the two operands.
+*/
+
+let x = 7;
+
+if (x == 7) {
+  //this will be true
+  // hthe value inside x and the value of the number 7 are equal
+}
+
+if (x === 7) {
+  //this is also true
+  //the number 7 and the value inside the variable xare the exact same thing
+}
+
+let x1 = 7;
+let x2 = `7`;
+
+console.log(x1 == x2); //true
+console.log(x1 === x2); //false
 
 /*
 Document Object Model:
@@ -279,7 +330,7 @@ Some of the properties and methods that you use will be looking at Nodes and som
 let h1 = document.querySelector("h1");
 console.log(h1.textContent);
 
-let getMyCarID = 000123;
+let getMyCarID = 123;
 
 function displayId(getMyCarID) {
   let p = document.createElement("p");
@@ -296,19 +347,19 @@ function displayId() {
     {
       fileName: "2024-revenue",
       size: "24kbs",
-      token: 001,
+      token: 1,
       department: "finance",
     },
     {
       fileName: "2020-marketing",
       size: "1mb",
-      token: 002,
+      token: 2,
       department: "marketing",
     },
     {
       fileName: "2023-it-security-plan",
       size: "50mb",
-      token: 003,
+      token: 3,
       department: "IT",
     },
   ];
@@ -407,3 +458,29 @@ movieTimes.forEach((movie) => {
 
 // Append the unordered list to the document body
 document.body.appendChild(movieTimesNode);
+
+class Employee {
+  constructor(employeeID, firstName, lastName, startDate) {
+    this.employeeID = employeeID; // Assign to this
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.startDate = startDate;
+  }
+
+  // Example method to get employee details
+  getDetails() {
+    return `${this.firstName} ${this.lastName}, Employee ID: ${this.employeeID}, started on ${this.startDate}.`;
+  }
+}
+
+const mark = new Employee(999, "Mark", "Jay", "April 20 2016");
+const steve = new Employee(636, "Steve", "Lee", "January 13 2019");
+
+console.log(mark.getDetails());
+console.log(steve.getDetails());
+// Output: Mark Jay, Employee ID: 999, started on April 20 2016.
+//
+
+let test = `124`;
+
+let testArray = ["orange", "black", "red", 123];
