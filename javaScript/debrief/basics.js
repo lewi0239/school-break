@@ -56,6 +56,13 @@ let person = {
   alive: true,
 };
 
+console.log(typeof age, typeof nothing);
+
+let a = 0;
+let b = "0";
+
+console.log(a === b);
+console.log(a == b);
 //object example
 
 let humanMale = new Object({
@@ -106,18 +113,18 @@ one to the end. The function then multiplies these by the first arugment
 
 */
 
-function hello() { }
+function hello() {}
 
-function goodBye(name, message) { }
+function goodBye(name, message) {}
 
-let open = function() { };
+let open = function () {};
 
 function close(num) {
   num = num + 1;
   return num;
 }
 
-let next = function(fn) {
+let next = function (fn) {
   fn();
 };
 
@@ -137,13 +144,13 @@ function f1() {
   return 1 + 1;
 }
 
-const f2 = function() { };
+const f2 = function () {};
 f2();
 
 //IIFE (immediately invoked function experession)
 //JavaScript wants to run this first
 
-(function f3() { })();
+(function f3() {})();
 
 //Return Statements
 // If a function does not contain the return keyword then, by default it returns undefined
@@ -174,7 +181,7 @@ to the new.target keyword
 Arrow functions cannot use yield within their body and cannot be created as geneerator functions
 
 */
-const f4 = function(num) {
+const f4 = function (num) {
   return num + 2;
 };
 
@@ -286,19 +293,32 @@ It is important to remember that there are two main types of Nodes in the DOM - 
 
 Some of the properties and methods that you use will be looking at Nodes and some will be looking at ElementNodes. The genral object type Node refers to both kinds, whereas Element nodes refer just to the tags like <p>, <div>, or <ul>
 */
-
-let h1 = document.querySelector("h1");
-console.log(h1.textContent);
-
-let getMyCarID = 123;
-
-function displayId(getMyCarID) {
-  let p = document.createElement("p");
-
-  p.document.textContent = `<p>${getMyCarID}</p>`;
-
-  document.body.appendChild(p);
+function init() {
+  app(); // Call the app function
 }
+
+function app() {
+  let h1 = document.querySelector("h1"); // Select the <h1> element
+  console.log(h1?.textContent); // Safely log the text content if h1 exists
+
+  let getMyCarID = 123;
+
+  // Function to display the car ID
+  function displayId(carID) {
+    let p = document.createElement("p"); // Create a new <p> element
+
+    // Set the text content of the <p> element
+    p.textContent = `Car ID: ${carID}`;
+
+    // Append the <p> element to the body of the document
+    document.body.appendChild(p);
+  }
+
+  displayId(getMyCarID); // Call the function to display the car ID
+}
+
+// Ensure the DOM is fully loaded before running the script
+document.addEventListener("DOMContentLoaded", init);
 
 displayId(getMyCarID);
 
@@ -406,9 +426,11 @@ movieTimes.forEach((movie) => {
   let capacity = (movie.seats_left / movie.total_seats) * 100;
 
   // Set the text content of each list item
-  movieTimesNodes.textContent = `Movie Name: ${movie.movie_Title
-    }, Show Times: ${movie.show_times.join(", ")}, Seats Left: ${movie.seats_left
-    }, Capacity: ${capacity.toFixed(2)}%`;
+  movieTimesNodes.textContent = `Movie Name: ${
+    movie.movie_Title
+  }, Show Times: ${movie.show_times.join(", ")}, Seats Left: ${
+    movie.seats_left
+  }, Capacity: ${capacity.toFixed(2)}%`;
 
   // Append the list item to the unordered list
   movieTimesNode.appendChild(movieTimesNodes);
@@ -438,6 +460,3 @@ console.log(mark.getDetails());
 console.log(steve.getDetails());
 // Output: Mark Jay, Employee ID: 999, started on April 20 2016.
 //
-
-
-

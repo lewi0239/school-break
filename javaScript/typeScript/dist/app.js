@@ -32,6 +32,7 @@ console.log(`Number of cars: ${Car.getNumberOfCars()}`); // Output: Number of ca
 console.log(carsLists);
 // Declare myPortfolio to store Stock instances
 let myPortfolio = [];
+let myPortfolioCached = [];
 class Stock {
     constructor(stockSymbol, stockPrice, sector) {
         this.stockSymbol = "";
@@ -64,3 +65,16 @@ console.log(myPortfolio);
 */
 console.log(`Number of stocks in portfolio: ${Stock.getNumberOfStocks()}`);
 // Output: Number of stocks in portfolio: 3
+class FinancialPlan {
+    constructor() {
+        this.clientFirstName = "";
+        this.clientLastName = "";
+        this.clientFullName = this.clientFirstName + this.clientLastName;
+        this.clientAddress = "Canada Street";
+        this.phoneNumber = "6131234567";
+        this.taxAdvisor = "Mr. Myplan Tax";
+        this.financialPlanner = "Ms. Myplan Planner";
+        this.snn = 0;
+        this.bank = "";
+    }
+}

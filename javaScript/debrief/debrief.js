@@ -498,6 +498,7 @@ console.log(steve.getDetails());
 /* 
 handling events
 
+<<<<<<< HEAD
 In JavaScript, an event is something that happens to an object.
 
 Objects have property values, which are values that can be used to describe an object. Property values can be things like size, speed, colour, name, id, etc. String.prototype.length is an example of what are generally referred to as a property.
@@ -527,3 +528,8 @@ h1NodeExample1.addEventListener("click", () => {
 
 //MAD9022
 //MAD90214
+=======
+let testArray = ["orange", "black", "red", 123];
+
+
+>>>>>>> ee884d6 (added second js file for debrief)
