@@ -248,7 +248,7 @@ let myObj3 = new DoIt();
 class myApp {
   constructor() {}
 }
-let myObj4 = myApp();
+let myObj4 = new myApp();
 
 /* 
 
@@ -261,13 +261,15 @@ let wizzard = {
   wizzardLastName: "Potter", //string property
   isWizzard: true, //boolean property
   speak: function () {
-    console.log(`You're a wizzard ${wizzard.speak}.`);
+    console.log(`You're a wizzard ${wizzard.wizzardFirstName}.`);
     //You're a wizzard Harry
   },
   mainSpell: function () {
     console.log("Levi-oh-sa");
   },
 };
+wizzard.speak();
+console.log(wizzard.mainSpell(), wizzard.wizzardFirstName);
 
 class Employee {
   constructor(employeeID, firstName, lastName, startDate) {
@@ -299,3 +301,50 @@ JavaScript has something called the prototype chain, which is how inheritance wo
 As an example, look at the toString() method. When you create an Array (opens new window), there is no method in Array called valueof. However, you can write the following and no error occurs.
 
 */
+
+/* 
+Square Brackets vs Dot Notation:
+
+The first way we access any property or method in an object is with dot notation. That means putting a period between each object name and property name.
+
+
+*/
+
+let vehicle = {
+  make: "BMW",
+  year: 2014,
+};
+
+vehicle.year;
+console.log(vehicle.make + " " + vehicle.year);
+
+//There is an alternative syntax that uses square brackets.
+
+let objBubba = {
+  name: "Bubba",
+  age: 44,
+};
+
+objBubba["name"];
+objBubba["age"];
+
+console.log(objBubba["name"]);
+
+/* 
+
+Note the quotation marks around the property names. All Object property names (for our purposes) will be Strings.
+
+So, why the two approaches? - With the square brackets we can put a variable inside the brackets instead of a string
+
+*/
+
+let n = "name";
+let ag = "age";
+
+objBubba[n]; // has the value 'Bubba'
+objBubba[ag]; // has the value 44
+
+//obj.n; // this would fail because JS would look for obj.n or obj['n']
+//obj.ag; // this would fail because JS would look for obj.a or obj['a
+
+//checking property Existance
