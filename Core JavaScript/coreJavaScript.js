@@ -227,6 +227,48 @@ function fn1() {
   //name and age are visible here, but NOT isAdulting
 }
 
+// Classes and Objects
+// Classes are the cookie cutters, objects are the actually cookie
+
+/*
+The Object datatype is the base object that is used to create all other non-primitive datatypes in JavaScript. While this may sound quite abstract, you will actually be creating many Objects of your own.
+*/
+// the object constructor
+let myObj1 = new Object(); //creates an empty object
+
+//an object literal
+let myObject2 = {};
+
+function DoIt() {} //instead of returning undefined, it returns an object of type DoIt
+
+let myObj3 = new DoIt();
+
+// The class syntax to define an object plus calling its constructor
+
+class myApp {
+  constructor() {}
+}
+let myObj4 = myApp();
+
+/* 
+
+The most common is the object literal syntax, where you are literally writing out what the object contains. Here is an object literal with 5 properties - 3 properties are just values (like primitive variables) and 2 are methods (like function expressions).
+
+*/
+
+let wizzard = {
+  wizzardFirstName: "Harry", //string property
+  wizzardLastName: "Potter", //string property
+  isWizzard: true, //boolean property
+  speak: function () {
+    console.log(`You're a wizzard ${wizzard.speak}.`);
+    //You're a wizzard Harry
+  },
+  mainSpell: function () {
+    console.log("Levi-oh-sa");
+  },
+};
+
 class Employee {
   constructor(employeeID, firstName, lastName, startDate) {
     this.employeeID = employeeID; // Assign to this
@@ -247,4 +289,13 @@ const steve = new Employee(636, "Steve", "Lee", "January 13 2019");
 console.log(mark.getDetails());
 console.log(steve.getDetails());
 // Output: Mark Jay, Employee ID: 999, started on April 20 2016.
-//
+
+/* 
+Prototypes:
+Every type of Object has a prototype. A prototype is a special kind of an object that contains all the methods that will be shared by all Objects of that type.
+
+JavaScript has something called the prototype chain, which is how inheritance works in JavaScript. Each one of the Object prototypes will have a connection to the prototype object belonging to it's parent object. At the top of the chain is the prototype of the Object object.
+
+As an example, look at the toString() method. When you create an Array (opens new window), there is no method in Array called valueof. However, you can write the following and no error occurs.
+
+*/
