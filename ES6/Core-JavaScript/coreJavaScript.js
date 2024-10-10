@@ -347,4 +347,65 @@ objBubba[ag]; // has the value 44
 //obj.n; // this would fail because JS would look for obj.n or obj['n']
 //obj.ag; // this would fail because JS would look for obj.a or obj['a
 
-//checking property Existance
+/* 
+
+As a best practice, when you are going to change an object by updating the value of a property, deleting a property, or adding a new property, then you should check to see if that property already exists.
+
+There are two ways that we can check for the existence of a property on any object. We can use the in operator or the hasOwnProperty() method. The in operator is the simplest and shortest to write.
+
+*/
+
+let cube = {
+  width: 8,
+  height: 8,
+  depth: 9,
+  ref: 11123,
+  temp: null,
+};
+
+if ("depth" in cube && cube.depth >= 8) {
+  console.log("this number is larger than 8");
+} else {
+  console.log(cube.depth);
+}
+
+if (objBubba.hasOwnProperty("width")) {
+}
+
+/* 
+Deleting Properties from Objects
+When you are done with a property and want to get rid of it there are two things we can do. First, to permanently delete the property, we use the delete keyword.
+*/
+
+delete cube["ref"];
+cube["temp"] = 420;
+
+/* 
+Nested Loops for Complex Objects
+There will be times when you have a complex object that has arrays nested inside of arrays. When you need to loop through all of the elements at every level, we will use a nested loop.
+
+Take this data as our example:
+
+*/
+
+let playerInventory = {
+  slots: [
+    { ammo: ["pistol", "sniper", "rockets"] },
+    { health: ["megaHealth", "smallHealth", "healOverTime"] },
+  ],
+};
+
+// Iterate through the slots
+for (let i = 0, numSlots = playerInventory.slots.length; i < numSlots; i++) {
+  let currentSlot = playerInventory.slots[i]; // Access each slot (either ammo or health)
+
+  // Iterate through the keys (ammo or health) in the current slot
+  for (let key in currentSlot) {
+    console.log(`Slot Type: ${key}`); // Print whether it's ammo or health
+
+    // Access the array under ammo or health
+    for (let x = 0, numItems = currentSlot[key].length; x < numItems; x++) {
+      console.log(`\tItem: ${currentSlot[key][x]}`); // Print each item inside ammo/health
+    }
+  }
+}
