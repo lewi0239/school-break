@@ -215,16 +215,167 @@ So, function expressions can be assigned to variables. The expressions itself do
 Variable name is what gets hoiste o the top of its scope.
 
 */
+/*  
+
+2.2 Truthiness, Control Flow, Strings
+If Statements
+if statements are a common construct in most programming languages. Simply put, they are a way to let your program make decisions based on yes - no questions.
+
+*/
+if (a == 5) {
+  //notice the two equal signs?
+}
+
+/* 
+The example above shows a simple if statement. Inside the parentheses is where you put the question you want the program to ask. Everything and anything that you place inside the parentheses will be boiled down to a yes or no answer.
+
+When asking questions in if statements, comparison operators are used between the values being compared. Greater than >, less than <, equal to ==, greater than or equal to >= and less than or equal to <=, are the comparison operators.
+
+Sometimes you just want to know if something exists or has a value equivalent to true. (See Truthiness below). We can just put a single variable inside the parentheses to check this. We can also add an exclamaition mark in front of the variable to check for the opposite.
+
+
+*/
+
+let varX = 5;
+if (varX) {
+  //varx is a non-zero number and x is not null or undefinded
+  // if read this "if x"
+}
+
+if (!varX) {
+  //x is zero or undefined or null
+  //we would this as "if not x"
+}
+
+/* 
+Else and Else If
+When you need to do things based on both the TRUE and FALSE conditions then you can use an if-else statement.
+
+*/
+
+let varY = 10;
+
+if (varY >= 10) {
+  console.log("Sometimes numbers can be larger than 10");
+} else {
+  console.log("hmm.. still smaller than 10");
+}
+
+/* 
+Two vs Three equal signs
+The examples up to this point have all been using two equal signs. This means that we are comparing the values of the two operands.
+
+There is another comparison operator, three equal signs. It compares the two operands to see if they are actually the same object, not just the same value.
+
+*/
+
+let ran1 = 4;
+let ran2 = "4";
+
+console.log(ran1 === ran2); //not equal
+console.log(ran1 == ran2); //equal
+
+/* 
+Ternary Statements
+Ternary statements are used as a short-hand for if else statements. When you have an if clause AND and else clause and there is one command to run for each condition, then you can use a ternary operator.
+
+These are often used to assign one of two possible values to a variable.
+
+The basic syntax requires a ? and a :. The expression to the left of the question mark is the question you are asking. Between the question mark and the colon is the value to use or command to run if the question was truthy. The expression that comes after the colon is the value to use or command to run if the question was falsey.
+*/
+
+let skyColor = blue
+  ? "The sky has always been this way"
+  : "Wait.. the sky isn't blue??";
+
+/* 
+ 
+ Switch Case Statements
+If you had an if statement that was going to compare a variable to a finite list of possible values then a useful alternative to all those parentheses and curly braces might be a switch case statement.
+
+Let's say that we have a variable called someName which contains a name. If the name is one of six possible values then we want to do something specific, tailored to that name. If it is not one of the six then we have a generic thing to do.
+
+We use the keyword case to provide a comparison value for someName. Whatever commands that come after a matching case value will run until a break command is encountered.
+
+You can have a list of possible matches written as a series of case statements written one after another with no break between them.
+ 
+ */
+let day = "Monday";
+
+switch (day) {
+  case "Monday":
+  case "Tuesday":
+  case "Wednesday":
+  case "Thursday":
+  case "Friday":
+    console.log("its a weekday..");
+    break;
+  case "Saturday":
+  case "Sunday":
+    console.log("Yeah its a weekend!");
+    break;
+  default:
+    console.log("hmm weird.. this is not a day of the week");
+}
+
+/* 
+Strings
+A String is a primitive value made up of letters, numbers, and punctuation, wrapped in quotation marks.
+
+There are three possible quotation marks that you are allowed to use in JavaScript.
+single qoute
+double quote
+template literal
+*/
+
+let myCity = "ottawa"; //double string
+let myCountry = "canada"; //single
+
+console.log(`My city is ${myCity} & my country is ${myCountry}`); //template literal
+
 let personName = "Bree"; //global variable
+
+/*
+String Methods
+As we already mentioned, Strings in JavaScript are a Primitive datatype.
+
+However, JavaScript also has an Object of type String. When you create a variable and assign a string value to that variable, then JS will quietly create one of these String Objects in the background for you.
+
+This allows us to use the length property and all the String methods like trim, indexOf, split, toUpperCase, toLowerCase, padStart and many others.
+
+
+Javascript String Methods:
+"Hello".charAt(4)             =>  o
+"Hello".concat("", "world")   =>  Hello world
+"Hello".startsWith("H")       =>  true
+"Hello".endsWith("o")         =>  true
+"Hello".includes("x")         =>  false
+"Hello".indexOf("l")          =>  2
+"Hello".lastIndexOf("l")      =>  3
+"Hello".match(/[A-Z]/g)       =>  ['H']
+"Hello".padStart(6, "?")      =>  ?Hello
+"Hello".padEnd(6, "?")        =>  Hello?
+"Hello".repeat(3)             =>  HelloHelloHello
+"Hello".replace("llo", "y")   =>  Hey
+"Hello".search("e")           =>  1
+"Hello".slice(1, 3)           =>  el
+"Hello".split('')             =>  ['H', 'e', 'l', 'l', 'o']
+"Hello".substring(2, 4)       =>  ll
+"Hello".toLowerCase()         =>  hello
+"Hello".toUpperCase()         =>  HELLO
+" Hello ".trim()              =>  Hello
+" Hello ".trimStart()         =>  "Hello "
+" Hello ".trimEnd()           =>  " Hello"
+*/
 
 function fn1() {
   let age = 25; //block scoped and visible anywhere inside this function
   if (age > 17) {
     let isAdulting; //block scoped inside this if statement
     isAdulting = true;
-    // name, age, and isAdulting are all visible here
+    // name, age, and is Adulting are all visible here
   }
-  //name and age are visible here, but NOT isAdulting
+  //name and age are visible here, but NOT is Adulting
 }
 
 // Classes and Objects
