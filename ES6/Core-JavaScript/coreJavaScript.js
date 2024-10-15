@@ -191,6 +191,34 @@ const f4shrtArrow = (num) => num + 2;
 
 const f4noArrg = () => 1 + 2;
 
+/* 
+Methods in JavaScript
+
+Features: example based on Math.() static methods
+
+Static Methods:	
+Access = Belongs to the class itself
+Usage = Called on the class, not on instances
+State = Does not access instance properties or this
+Common Use Case	= Utility or helper functions (e.g., Math.random())
+
+Instance Methods:
+Access = Belongs to the instance of the class
+Usage = Called on an instance of the class
+State = Accesses the instance's properties via this
+Common Use Case =  Math.random())	Actions that depend on the instance's state
+
+Constructor Methods:
+The constructor method is a special type of instance method that is automatically called when a new instance of a class is created. It is used to initialize the object’s properties.
+
+Prototype Methods:
+Instance methods in JavaScript are often referred to as prototype methods, as they are defined on the prototype of a class (or constructor function). All instances of the class share the same prototype, meaning they share the same methods. If a method is defined in the prototype, all instances will have access to it.
+
+Getter and Settor Methods:
+Getters and setters are special methods in JavaScript that allow you to define custom behavior when accessing or assigning a property. These methods are useful for encapsulating private data or adding validation logic when interacting with object properties.
+
+*/
+
 /*
 Variable Scope and Hoisting:
 Scope is a term used to describe where a variable is visible (can be accessed from). With either 
@@ -284,7 +312,7 @@ These are often used to assign one of two possible values to a variable.
 The basic syntax requires a ? and a :. The expression to the left of the question mark is the question you are asking. Between the question mark and the colon is the value to use or command to run if the question was truthy. The expression that comes after the colon is the value to use or command to run if the question was falsey.
 */
 
-let skyColor = blue
+let skyColor = "blue"
   ? "The sky has always been this way"
   : "Wait.. the sky isn't blue??";
 
@@ -378,8 +406,190 @@ function fn1() {
   //name and age are visible here, but NOT is Adulting
 }
 
+/* 
+The Math Object:
+JavaScript has a Math object which can carry out most common mathematical operations. If you need to round numbers up or down, complete Trigonometric calculations, determine which is the largest or smallest number, create a random number, determine if a number is positive or negative, or access the value of Pi. All of these things can be accomplished with the Mathematical methods.
+
+These methods all begin with the Math object name:
+
+Math.round(num); //returns the next highest or lowest integer depending on its decimal value.
+Math.floor(num); //always rounds down to the next lowest integer
+Math.ceil(num); //always rounds up to the next highest integer
+Math.random(); //returns a random value between 0 and 1.
+Math.max(list, of, numbers); //returns the largest number from the list
+Math.min(list, of, numbers); //returns the smallest number from the list
+Math.abs(num); //returns the absolute value of the number
+Math.sign(num); //returns 1, -1, 0, -0, NaN to tell you if the number is positive or negative
+Math.sin(radians); //returns the sine value for the provided radian value
+Math.cos(radians); //returns the value of Cosine for the provided radian value
+Math.tan(radians); //returns the value of Tangent for the provided radian value
+Math.PI; //Use this as if it were a variable holding the value of Pi
+*/
+
+let maths1 = 445.413;
+let maths2 = 445.413;
+let math3 = 445.4;
+let maths4 = 445.7;
+let maths5 = Math.random() * 10;
+let maths6 = Math.max(1, 2, 3, 4, 5);
+let maths7 = Math.min(1, 2, 3, 4, 5);
+let maths8 = Math.max(1, 2, 3, 4, 5);
+let maths9 = () => {
+  return Math.abs(a - b);
+};
+
+let maths10 = console.log(Math.round(maths1)); //445
+
+/* 
+
+NaN
+Not A Number (NaN) is an Object in JavaScript that represents a value that is "Not A Number". You only get this value when you are trying to run a Number or Math that requires a numeric value.
+
+There is also a global method isNaN(), which is specifically designed to check if the value in a variable is a numeric one. Just pass a value or variable to the method and it will run the test and return a boolean.
+
+It returns true if the variable value is NOT numeric and false if the value IS a numeric one
+
+
+
+*/
+
+const nameGen = "brodie";
+
+nameGenCheck = () => {
+  isNaN(nameGen) ? console.log("its a string") : console.log("its a number");
+};
+nameGenCheck();
+
+/* 
+JavaScript Date Objects
+If you were writing HTML then you could add a <time> element and write a string that represents a Date. However, this would not be an object that you could use in your script. JavaScript comes with a Date object that you can actually manipulate, convert to different times, calculate time differences, and work with just the time or just the date value.
+
+There is a new Temporal object that is under development. It will give us a lot more control over things like time zones, time ranges, and international formatting. Until that happens, we still have a basic Date object that we can use for all our basic needs.
+
+There are actually a few different ways that you can call the Date constructor method.
+
+
+*/
+
 // Classes and Objects
 // Classes are the cookie cutters, objects are the actually cookie
+
+let today = new Date(); //todays date
+let date1 = new Date("28/9/2016 14:30:00.000"); //a formatted string
+let date2 = new Date(2016, 9, 28, 14, 30, 0); // yyyy, mm, dd, hours, mins, seconds
+let date3 = new Date(1500000000000); //a timestamp with the number of milliseconds since Jan 1 1970, 12am
+console.log(today);
+console.log(date1);
+console.log(date2);
+console.log(date3);
+
+/* 
+The first line above will create a new Date object and it will fill it with the current date and time from the computer that is running the script.
+
+The second line creates a new Date object and sets a specific date and time. We pass in a String with a valid date and time. The values for day, month, year, hour, minutes, seconds, and milliseconds would be set inside our Date object. The String that is passed in must be a date string that would be recognized by the Date.parse( ) method. See here for examples(opens new window)
+
+The third line accepts up to seven arguments for the parts of the Date. The last argument is the milliseconds. dt2 will contain the same date as dt1 from the example code.
+
+The last line accepts a timestamp, which is the number of milliseconds since the start of the Unix Epoch -> Jan 1, 1970 00:00:00.000Z. In July of 2017 we passed the 1.5 Trillion mark for milliseconds in the current timestamp. You can pass any number to this method to set the time and date inside the Date object.
+
+*/
+
+console.log(today.getDay());
+
+today.setHours(12); // Set hours from 0-23
+console.log("After setting hours to 12:", today);
+
+today.setMinutes(3); // Set minutes from 0-59
+console.log("After setting minutes to 3:", today);
+
+today.setSeconds(50); // Set seconds from 0-59
+console.log("After setting seconds to 50:", today);
+
+today.setMilliseconds(123); // Set milliseconds from 0-999
+console.log("After setting milliseconds to 123:", today);
+
+today.setFullYear(2044); // Set the full year to 2044
+console.log("After setting year to 2044:", today);
+
+today.setMonth(0); // Set the month to January (0 represents January)
+console.log("After setting month to January (0):", today);
+
+today.setDate(1); // Set the day of the month to 1 (if no argument is provided, it defaults to `1`)
+console.log("After setting date to 1:", today);
+
+// Using Date.UTC to create a timestamp
+let utcDate = Date.UTC(2044, 0, 1, 12, 3, 50, 123); // Date.UTC(y, m, d, hr, min, sec, ms)
+console.log("UTC timestamp for 2044-01-01 12:03:50.123:", utcDate);
+
+// Convert the UTC timestamp back to a Date object for display
+let utcDateObject = new Date(utcDate);
+console.log("UTC Date object:", utcDateObject);
+
+/* 
+Retrieving Date Values
+If you want to retrieve any part of the date or time then you can use the matching "get" methods. Start with using your Date variable and then call the method on the variable
+
+*/
+
+today.getHours();
+today.getMinutes();
+today.getSeconds();
+today.getMilliseconds();
+today.getFullYear();
+today.getMonth(); // value from 0 - 11
+today.getDate(); // value from 1 - 31
+today.getDay(); //day of week Sunday (0) - Saturday (6)
+
+Date.now(); //Using the Date object, call now( ) to get a timestamp
+//which is the number of milliseconds since the start of the UNIX Epoch
+//midnight January 1, 1970
+
+/* 
+Outputting Dates
+There are many methods for outputting the date object's value. Here is a list of the various methods.
+
+*/
+today.toDateString(); //returns the date portion in human readable format
+today.toTimeString(); //returns the time portion in human readable format
+today.toISOString(); //returns a string in simplified extended ISO format
+today.toJSON(); //converts the date to a string intended to be used in JSON
+console.log(today.toJSON() + " " + "im a json");
+today.toLocaleDateString("en-CA"); //returns a string representation based on the
+//computer's locale settings or provided locale
+today.toLocaleString("en-GB"); //same thing effectively
+today.toLocaleString("en-US");
+
+/* 
+Working With Months
+In the JavaScript Date object, months are stored as a number between 0 and 11.
+
+If you want to see or use the name of the month then you need to create your own array of the month names and use the Date object month as the index for that array.
+
+*/
+
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+let todayWithArray = new Date();
+console.log("Current month is:", months[todayWithArray.getMonth()]);
+
+/* 
+loops, for in loop, for of loop, while loop, infinite loops, do while loop, and for loops
+
+
+*/
 
 /*
 The Object datatype is the base object that is used to create all other non-primitive datatypes in JavaScript. While this may sound quite abstract, you will actually be creating many Objects of your own.
