@@ -586,10 +586,121 @@ let todayWithArray = new Date();
 console.log("Current month is:", months[todayWithArray.getMonth()]);
 
 /* 
+
+Converting to Timestamps (unary)
+The unary + operator is an easy way to convert a date into its numeric timestamp.
+
+*/
+
+let todayStamp = new Date();
+let timestamp1 = +todayStamp; //convert the value in the date to a timestamp
+let timestamp2 = +new Date(); //convert the current computer time to a timestamp
+let timestamp3 = Date.now(); //use the Prototype/Class/Static method
+let timestamp4 = todayStamp.valueOf(); //get the timestamp of a specific date
+
+/* 
 loops, for in loop, for of loop, while loop, infinite loops, do while loop, and for loops
+
+Loops
+A loop is a very common programming structure. It is actually part of the control-flow category that we discussed last week.
+
+The purpose of a loop is to repeat one or more commands, as quickly as possible, a specific number of times or until a condition is met.
+
+First, lets review why we have loops. They are a common feature in programming languages. Say, for example, that you wanted to create a list of five random numbers. You could declare five variables and use the Math.random( ) method to generate the numbers and assign them to the variables. We could do this with just repeating the same line of code five times.
+
+for (initializer; condition; iterator) {
+   Code to be executed in each iteration
+}
+
+
+
+The example above is the standard for loop. The code inside the parentheses is split into three parts. The three parts are divided by semi-colons. ;
+
+Initialization. Declare local variables for the loop. Usually just a variable that can be used to count the number of iterations of the loop. Commonly known as the counter variable. This part runs before any looping begins. You can declare as many variables as you want here, separating each declaration with a comma.
+Test condition. Normally this means comparing your counter variable to a maximum or minimum value. The loop will run this test once before each iteration of the loop.
+Increment/Decrement. Every time the loop finishes running the commands that are inside the curly braces, this part of the code runs. It runs after the commands and before the next test.
+
+*/
+
+let nums = [];
+
+for (let i = 0; i < 10; i++) {
+  console.log(nums.push(Math.random));
+}
+
+/* 
+For in Loop
+A second type of for loop is the for...in loop. These are used to loop through a list of items that have a known number of items. They work with Objects that are iterable. We will talk more about this in the future. For now, just think of it as a short hand way to loop through an Array.
 
 
 */
+let myArray = [100, 200, 300];
+
+for (let prop in myArray) {
+  console.log(myArray[prop]);
+}
+
+/* 
+
+There is a difference between for...in and for...of is that for...of cannot loop over most Objects. This has to do with the difference between Iterable and Enumerable
+
+
+*/
+
+/* 
+While Loop
+There are two kinds of while loops in JavaScript, the while loop and the do..while loop. The difference between them is that the do..while loop will always run at least once because it runs the loop before checking to see if the while test passes. The while loop will test your condition before it runs the loop.
+
+*/
+
+var counter = 0;
+while (counter < 10) {
+  console.log(counter);
+  counter++;
+}
+
+var counter2 = 0;
+do {
+  console.log(counter2);
+  counter2++;
+} while (counter2 < 10);
+
+/* 
+Infinite Loops
+When using while loops you do need to be careful that you don't create an infinite loop condition. That is a loop that never ends. When this happens your code can quickly use up all the system resources and even make the browser crash.
+
+While modern browsers are pretty good at avoiding the crash part, it will still result in your code ceasing to run.
+
+Consider the code example below. That loop will never end. The value of isRunning will always be true.
+
+let i = 0;
+let isRunning = true;
+
+while (isRunning) {
+  console.log(i);
+  i++;
+}
+
+while (isRunning) {
+  console.log(i); //output the value of i
+  i++; //increment the value of i
+  if (i > 100) {
+    isRunning = false;
+  }
+}
+
+Do While loop
+There is one other variant of the while loop called do while.
+
+
+*/
+
+let i01 = 100;
+
+do {
+  console.log(i01); //output the value of i
+  i01++; //increment the value of i
+} while (i01 < 100);
 
 /*
 The Object datatype is the base object that is used to create all other non-primitive datatypes in JavaScript. While this may sound quite abstract, you will actually be creating many Objects of your own.
