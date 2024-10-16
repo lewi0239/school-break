@@ -702,6 +702,97 @@ do {
   i01++; //increment the value of i
 } while (i01 < 100);
 
+/* 
+JavaScript Array Objects
+Arrays in JavaScript are simply numbered lists. A list of names, dates, numbers, or anything really. To create an Array we can use either the Array constructor function or write an Array literal.
+
+Arrays in JS are dynamically built and sized, meaning that you can change the number of elements inside one at any time. You do not have to provide a size limit when you create one.
+
+To determine the number of items in an Array, use the length property.
+
+*/
+
+let = myFriendsList = ["Jon", "Bran", "Rickon", "Rob", "Sansa", "Arya"]; //length is 6
+myFriendsList[0]; // Jon (first element)
+myFriendsList[1]; //Bran (second element)
+myFriendsList[0] = "Brodie"; //changes element 0 to Brodie
+
+let getItemInArray = 3;
+myFriendsList[getItemInArray];
+let last = myFriendsList - 1;
+myFriendsList[last];
+/*
+Pop, Push, Shift, Unshift
+If you want to add a new element to or remove an element from either the beginning or the end of the Array then we can use the pop, push, shift or unshift methods.
+
+Picture the Array as a stack of Lego bricks. Element zero was the first one added and it sits at the bottom of the stack. The element on top was the last one added. The pop method will remove an element from the top. The push method will add a new element on the top.
+
+The crude analogy used to remember the other two methods is - taking a shift will drop an element off the bottom of the stack and unshift will reverse that.
+
+*/
+let removed1 = myFriendsList.pop(); // remove the last element added
+let removed2 = myFriendsList.shift(); //remove the first element from the array
+
+myFriendsList.unshift(removed2); //put removed2 back at the start of the array
+myFriendsList.push(); // put removed back as the last element
+
+//You can call these methods repeatedly to remove everything from the Array, if you want.
+
+/* 
+Array at method
+A new method has been added recently for Arrays in JavaScript.
+
+We already know that we can use the square brackets to target a specific element in an array. Inside the square brackets you put the index position of the element you want to access. Remember to start counting at zero
+
+*/
+//an array of functions:
+let testarr = [(test1 = () => {}), (test2 = () => {}), (test3 = () => {})];
+
+let operaitons = [
+  (getSum = (a, b) => a + b), //addition
+  (getDifference = (a, b) => a - b), //subtraction
+  (getMultiplcation = (a, b) => a * b), //multiplication
+  (getDivision = (a, b) => a / b), //Division
+];
+
+function getCalculationRange(operationIndex, a, b) {
+  if (operationIndex < 0 || operationIndex >= operaitons) {
+    console.log("Operations request is out of scope");
+  }
+  return operaitons[operationIndex](a, b);
+}
+
+console.log(getCalculationRange(0, 5, 5) + " " + "test"); // 5+5
+
+let abc = ["a", "b", "c"];
+
+/* 
+Array at method
+A new method has been added recently for Arrays in JavaScript.
+
+We already know that we can use the square brackets to target a specific element in an array. Inside the square brackets you put the index position of the element you want to access. Remember to start counting at zero.
+
+*/
+
+let myNameIs = ["B", "R", "O", "D", "I", "E"];
+
+let myFirstLetterIs = myNameIs[0]; //square bracket method
+
+let myLastLetterIs = myNameIs.at(-1); //at method
+
+console.log(myFirstLetterIs + myLastLetterIs);
+
+/* 
+Slice and Splice
+If you want to remove one or more elements from the middle of an Array you can use the slice method. If you want to add one or more elements to the middle of an Array you can use the splice method.
+
+The slice method needs a starting index and an ending point. The starting index is a number for the position of the first element to remove. The second number provided is the index to stop before. If negative numbers are used for either value then count from the end of the Array. If no ending number is provided then it will remove from the starting position to the end of the Array. The slice method does NOT change the original array. It returns a copy of the selected items.
+
+The splice method can be used to only insert new elements or to remove elements and replace them with a new series of elements. It takes a starting position as the first argument. The second argument is how many elements to remove, which may be zero. The third and all subsequent arguments will be inserted at the starting index. The splice method will change the original array.
+
+
+*/
+
 /*
 The Object datatype is the base object that is used to create all other non-primitive datatypes in JavaScript. While this may sound quite abstract, you will actually be creating many Objects of your own.
 */
