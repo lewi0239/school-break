@@ -710,6 +710,33 @@ Arrays in JS are dynamically built and sized, meaning that you can change the nu
 
 To determine the number of items in an Array, use the length property.
 
+
+
+Destructive Array Methods:
+These methods modify the original array:
+
+.push() – Adds one or more elements to the end of an array.
+.pop() – Removes the last element from an array.
+.shift() – Removes the first element from an array.
+.unshift() – Adds one or more elements to the beginning of an array.
+.splice() – Adds or removes elements at a specified index.
+.reverse() – Reverses the order of elements in an array.
+.sort() – Sorts the elements of an array in place.
+
+Non-Destructive Array Methods:
+These methods do not change the original array; they return a new array or a value:
+
+.concat() – Combines two or more arrays and returns a new array.
+.slice() – Returns a shallow copy of a portion of an array.
+.map() – Creates a new array with the results of calling a function on every element.
+.filter() – Creates a new array with all elements that pass a test.
+.reduce() – Applies a function against an accumulator and each element to reduce it to a single value.
+.find() – Returns the first element that satisfies a provided condition.
+.includes() – Checks if an array includes a certain value.
+.indexOf() – Returns the first index at which a given element can be found.
+.forEach() – Executes a function on each element (doesn't modify the array, but doesn't return a new array either).
+
+
 */
 
 let = myFriendsList = ["Jon", "Bran", "Rickon", "Rob", "Sansa", "Arya"]; //length is 6
@@ -782,6 +809,13 @@ let myLastLetterIs = myNameIs.at(-1); //at method
 
 console.log(myFirstLetterIs + myLastLetterIs);
 
+let myCars = ["volvo", "honda", "ford"];
+
+myCars.pop(); // remove honda from the list
+myCars.shift(); // removes volvo
+
+console.log(myCars); // will only show ['honda']
+
 /* 
 Slice and Splice
 If you want to remove one or more elements from the middle of an Array you can use the slice method. If you want to add one or more elements to the middle of an Array you can use the splice method.
@@ -790,6 +824,187 @@ The slice method needs a starting index and an ending point. The starting index 
 
 The splice method can be used to only insert new elements or to remove elements and replace them with a new series of elements. It takes a starting position as the first argument. The second argument is how many elements to remove, which may be zero. The third and all subsequent arguments will be inserted at the starting index. The splice method will change the original array.
 
+
+*/
+
+let numbers = [0, 1, 2, 3, 4, 5, 6];
+let students = ["alice", "bob", "charlie", "diana"];
+let firstnum = 2;
+let lastnum = 4;
+
+let removednumbs = numbers.splice(firstnum, lastnum);
+console.log(numbers);
+
+let removeStudents = students.slice(firstnum, lastnum);
+console.log(removeStudents);
+
+/* 
+ForEach Method
+Once you understand what arrays are and how you can add and remove values from an Array, then you need to know how to loop over the values. We already discussed the for...loop and for...in statements last week, and that works fine but there are actually built-in methods designed to loop over Arrays for specific purposes.
+
+If you want to loop through an array, there is a built-in method for doing so, called forEach. The method has one required parameter - a function. It will call this function once for each item in the Array.
+
+When it calls the function, it will pass three things to the function.
+
+The item from the Array
+The index number of the current item.
+A copy of the Array which can be used to do comparisons.
+The three items will ALWAYS come in that order. You can name the three variables whatever you like.
+
+
+*/
+
+let beers = ["corona", "goose island", "boneshaker"];
+beers.forEach(function (item, index, arr) {
+  console.log(index, item);
+});
+
+/* 
+
+Array Map
+The map method works similarly to the forEach method. It loops once for each item in the Array. It calls a function (which you provide) each time it loops. It provides the same three values to the function each time it is called.
+
+The difference is that while the forEach method returns undefined, the map method returns a NEW array built out of the return values from the function it called.
+
+Because it called the function once for each item in the Array, it means that the new Array will always be the exact same length as the original array.
+
+
+*/
+
+let cheeses = ["Gouda", "cheddar", "Brie"];
+let tasteGoodWithCheese = cheeses.map((cheese) => `${cheese} is tasty`);
+
+console.log(tasteGoodWithCheese);
+
+let robotNames = [
+  "Optimus",
+  "RoboMax",
+  "CyborgX",
+  "SteelBot",
+  "MechaZ",
+  "NanoTron",
+  "Circuitra",
+  "DigiDroid",
+  "AutoMech",
+  "VoltBot",
+];
+
+/* 
+
+Array Filter
+Just like the forEach method and the map method, the Array filter method will loop through an array and call a function once for each element in the array. The filter method also returns a NEW array.
+
+However, the difference between the map and filter methods is that the filter method returns an array holding a copy of the original array elements, and it is allowed to include or exclude elements from the original array as it loops.
+
+If the function called by the filter method returns a falsey value then it excludes the current element. If it returns a truthy value then it will include that element in the new array.
+
+*/
+
+let filterBots = robotNames.map((robot) => robot.length > 6);
+
+console.log(filterBots);
+
+/* 
+
+Sorting Arrays
+At some point you will want to sort an Array. Thankfully, the JavaScript array object comes with a built-in sort method. The sort method will change the original Array.
+
+The sort will sort the items in the Array in alphabetical order.
+
+
+*/
+
+let hotels = ["zoo-hotel", "beach-side", "mountain welcome", "sleepy-bog"];
+hotels.sort();
+console.log(hotels);
+
+/* 
+
+Other Array Methods
+There are MANY array methods that are used routinely. Do not try to memorize them all. Get familiar with what the possibilities are. You will gain expertise in the methods over time, with practice. Revisit this list on a regular basis to review.
+
+One thing to pay special attention to with Array methods is whether the method changes the original Array or whether it creates a new one. If the method changes the original Array then it is called a destructive method.
+
+
+Array.concat( )
+The Array concat method allows you to add another Array on to the end of the original one. It returns a new Array.
+
+*/
+
+let arr1 = [1, 20, 5];
+let arr2 = [25, 50, 75];
+let arr3 = arr1.concat(arr2);
+
+let arr4 = arr1 + arr2;
+
+console.log(arr3 + arr4);
+
+/* 
+
+Array.includes( )
+The Array includes method will loop through an Array looking for a match for the value that you provide. The value you provide can be any Primitive. Optionally you can add a starting position to begin looping. It returns a true or false value.
+
+
+*/
+
+let fieldOps = ["bob", "agent-47", "mouse"];
+
+let get47 = fieldOps.includes("agent-47");
+
+console.log(get47);
+
+/* 
+
+Array.some( )
+The Array some method will loop through the values in an Array and returns true as soon as it finds the first value that meets your condition. It accepts a function as it's parameter. This makes it very efficient because it could exit before looping through all values.
+
+*/
+
+let planets = ["earth", "mars", "saturn", "jupiter"];
+
+planets.some((x) => {
+  // console.log(`Huston we found ${x}`);
+  return x == "mars";
+});
+
+/*Array.every( )
+The Array every method will check every value in an Array to see if they all meet a condition that you choose. It returns a true or false.
+*/
+
+let anotherNumnerList = [100, 350, 750, 234, 6];
+
+let getEvenNumbers = anotherNumnerList.every((even) => {
+  if (even % 2 === 1) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+/* 
+Array.join( )
+The Array join method will convert all the values in the Array into Strings and then combine all the Strings into a single String. You have the option of putting a separator between each of the String values as their are joined.
+
+*/
+
+let songsOfDeath = [
+  "I",
+  "love",
+  "the",
+  "smell",
+  "of",
+  "napalm",
+  "in",
+  "the",
+  "morning",
+];
+
+songsOfDeath.join();
+
+/* 
+
+Array.reduce( )
+The Array reduce method will loop through an Array and return a single value. You provide a function and a starting value for comparison. The starting value is often called the accumulator.
 
 */
 
