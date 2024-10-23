@@ -190,6 +190,11 @@ main.innerHTML = myhtml;
 main.setHTML(myhtml);
 
 /* 
+It is important to note that this approach is going to replace any content that is already inside of <main> and not just append it to the existing content.
+
+*/
+
+/* 
 Updating and Removing HTML
 Manipulating HTML can be done quite easily once you understand the parent-child-sibling relationship between Nodes and the difference between Element nodes and Text nodes.
 Once you have found the ElementNode you need, then you can start to manipulate the content.
@@ -207,4 +212,38 @@ p.textContent = "A new paragraph for the page";
 //add some text inside the paragraph
 main.appendChild(p);
 //add the newly created paragraph as the last child of the main element
+*/
+
+/* 
+It is important to note that both the append and the appendChild methods always inject the new child element or child textnode as the LAST child. It will always be added at the bottom of the parent element
+
+*/
+
+/* 
+If you want to inject your new textnode or element in a location other than the last position, then you need to use the insertBefore(), insertAfter(), insertAdjacentElement(), insertAdjacentText(), or insertAdjacentHTML() methods. The insert before and after methods want a reference element as well as the child node to insert before or after. The insertAdjacent methods want a reference element plus one of four reference positions. Take this HTML as an example:
+
+*/
+
+/* 
+
+<h2>Some heading</h2>
+<ul>
+  <li>first item</li>
+  <li>second item</li>
+  <li>third item</li>
+</ul>
+<p>Some more text</p>
+
+If the <ul> is my reference element, I can inject my new element in one of the four positions:
+
+before the <ul> starts beforebegin
+after the <ul> starts but before the first <li> afterbegin
+after the last <li> but still inside the <ul> beforeend
+after the <ul> ends but before the <p> afterend
+The four strings used as the position values are bolded in the list above.
+
+referenceElement.insertAdjacentElement(position, childElement); //insert Element
+referenceElement.insertAdjacentText(position, childTextNode); //insert textNode
+referenceElement.insertAdjacentHTML(position, HTMLString); //parse string and insert
+
 */
