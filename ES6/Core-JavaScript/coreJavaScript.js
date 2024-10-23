@@ -1008,6 +1008,18 @@ The Array reduce method will loop through an Array and return a single value. Yo
 
 */
 
+let accum = [10, -5, 15];
+
+let reduceAccum = accum.reduce((acc, num) => {
+  if (num > 0 && num > acc) {
+    return num;
+  } else {
+    return acc;
+  }
+});
+
+console.log(reduceAccum); // 15
+
 /*
 The Object datatype is the base object that is used to create all other non-primitive datatypes in JavaScript. While this may sound quite abstract, you will actually be creating many Objects of your own.
 */
