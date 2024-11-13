@@ -543,3 +543,63 @@ elem.classList.contains('active'); // check IF the class `active` is assigned to
 elem.classList.replace('active', 'inactive'); // replace the class `active` with the class 'inactive'
 
 */
+
+/* 
+Side Effects of Appending
+It is worth noting, when you create an element with createElement or reference and element with querySelector or the other methods, then that element still exists whether it is just in memory or on the page.
+
+let p = document.createElement('p'); //exists in memory
+p.textContent = 'I exist!'; //p is still in memory only
+let header = document.querySelector('header'); // exists on the page
+let main = document.querySelector('main'); // exists on the page
+let footer = document.querySelector('footer'); // exists on the page
+
+
+header.append(p); //moved p from memory to inside header on page
+main.append(p); //moved p from inside header to inside main
+footer.append(p); //moved p from inside main to inside footer
+footer.removeChild(p); //moved p from inside footer on page to in memory
+
+The above code sample does NOT create three copies of the paragraph.
+
+If you did want to create copies of the paragraph then you could use the cloneNode method.
+
+let copy1 = p.cloneNode(true); //creates a copy of p and includes anything it contained
+let copy2 = p.cloneNode(true); //creates a copy of p and includes anything it contained
+now we have p, copy1, and copy2 as three separate elements
+
+*/
+
+/* 
+Removing Content
+If you want to remove HTML that already exists we have a few options.
+
+With the innerHTML property or the textContent property you can set the content of any element to an empty String.
+
+
+let div = document.querySelector('div'); //find the first div on the page
+let p = div.querySelector('p'); //find the first paragraph inside div
+
+p.textContent = ''; //set the text inside the paragraph to empty
+div.innerHTML = ''; //remove all html and text inside div. could also use .setHTML()
+
+Using the remove() or removeChild() methods.
+
+
+p.remove(); //will remove the paragraph from whatever its parent is.
+div.remove(); //will remove div and everything it contains
+p.parentElement.removeChild(p); //refer to the parent of the p and use removeChild to target what will be removed
+div.removeChild(p); //remove the paragraph from it's parent div
+
+
+*/
+
+/* 
+
+Node Properties
+In the list below there are a series of property pairs. The first properties will return a NodeList or a single Node. Remember that Nodes can be element nodes, text nodes, or comments.
+
+The second property will return a list of Element Nodes or a single Element Node.
+
+
+*/
