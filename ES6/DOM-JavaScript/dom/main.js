@@ -148,13 +148,13 @@ let indexP = document.createElement("p");
 let indexP2 = document.createElement("p");
 let indexImg = document.createElement("img");
 
-// Set content and attributes for the new elements
-indexh2.textContent = "Welcome to the Travel Blog"; // Set the text for the header
-indexP2.textContent = "Ipsum"; // Set the text for the second paragraph
-indexImg.src = "travel.jpg"; // Set the image source
-indexImg.alt = "Travel Blog logo"; // Set the alternative text for the image
-indexHeader.className = "header"; // Assign a class to the header div
-indexContent.className = "content"; // Assign a class to the content div
+// // Set content and attributes for the new elements
+// indexh2.textContent = "Welcome to the Travel Blog"; // Set the text for the header
+// indexP2.textContent = "Ipsum"; // Set the text for the second paragraph
+// indexImg.src = "travel.jpg"; // Set the image source
+// indexImg.alt = "Travel Blog logo"; // Set the alternative text for the image
+// indexHeader.className = "header"; // Assign a class to the header div
+// indexContent.className = "content"; // Assign a class to the content div
 
 // Create a text node and append it to a paragraph
 let lorem = document.createTextNode("Lorem");
@@ -175,22 +175,22 @@ The HTML String approach is the alternative to creating elements. Instead we are
 Here is the String approach for the same content.
 */
 
-// Select the main element first
-let main = document.querySelector("main");
+// // Select the main element first
+// let main = document.querySelector("main");
 
-// Then you can update the innerHTML as intended
-let footer1 = document.querySelector("footer");
+// // Then you can update the innerHTML as intended
+// let footer1 = document.querySelector("footer");
 
-let footerHtml = `<div class="header">
-    <h2>Some Heading</h2>
-  </div>
-  <div class="content">
-    <p><img src="./img/logo.png" alt="Company logo" /> Lorem.</p>
-    <p>Ipsum.</p>
-  </div>`;
+// let footerHtml = `<div class="header">
+//     <h2>Some Heading</h2>
+//   </div>
+//   <div class="content">
+//     <p><img src="./img/logo.png" alt="Company logo" /> Lorem.</p>
+//     <p>Ipsum.</p>
+//   </div>`;
 
-// Update the innerHTML of the selected main element
-main.innerHTML = footerHtml;
+// // Update the innerHTML of the selected main element
+// main.innerHTML = footerHtml;
 
 /* 
 It is important to note that this approach is going to replace any content that is already inside of <main> and not just append it to the existing content.
@@ -454,58 +454,58 @@ When the String is fully built, call one of the methods or properties to inject 
 */
 
 // Define the setHTML method on the Element prototype
-Element.prototype.setHTML = function (htmlString) {
-  // Set the innerHTML of the element to the provided HTML string
-  this.innerHTML = htmlString;
-};
+// Element.prototype.setHTML = function (htmlString) {
+//   // Set the innerHTML of the element to the provided HTML string
+//   this.innerHTML = htmlString;
+// };
 
-let one = document.querySelector(".one");
-let getHtml = info
-  .map((item) => {
-    let str = `<p data-re="${item.id}">${item.txt}</p>`;
-    return str;
-  })
-  .join("");
-one.setHTML(getHtml);
+// let one = document.querySelector(".one");
+// let getHtml = info
+//   .map((item) => {
+//     let str = `<p data-re="${item.id}">${item.txt}</p>`;
+//     return str;
+//   })
+//   .join("");
+// one.setHTML(getHtml);
 
 //version two
 // use the innerHTML property to append a string that includes HTMLL
 
-let two = document.querySelector(".two");
-let getHtml2 = info
-  .map((item) => {
-    let str2 = `<p data-ref="${item.id}">${item.txt}</p>`;
-    return str2;
-  })
-  .join("");
-two.innerHTML = html2;
+// let two = document.querySelector(".two");
+// let getHtml2 = info
+//   .map((item) => {
+//     let str2 = `<p data-ref="${item.id}">${item.txt}</p>`;
+//     return str2;
+//   })
+//   .join("");
+// two.innerHTML = html2;
 
 //version three
 //use the DOMParser parseFromString method to convert a string to an HTML document
 // and then append the document's body property value
-let three = document.querySelector(".three");
-let html3 = info
-  .map((item) => {
-    return `<p data-ref="${item.id}">${item.txt}</p>`;
-  })
-  .join("");
-let parser = new DOMParser();
-let doc = parser.parseFromString(html3, "text/html");
-three.append(doc.body);
+// let three = document.querySelector(".three");
+// let html3 = info
+//   .map((item) => {
+//     return `<p data-ref="${item.id}">${item.txt}</p>`;
+//   })
+//   .join("");
+// let parser = new DOMParser();
+// let doc = parser.parseFromString(html3, "text/html");
+// three.append(doc.body);
 
 //version four
 // use createElement followed by append to create an array of HTML elements
 // then use Element.append( ...theArray ) with the spread operator to append the array of Elements
-let four = document.querySelector(".four");
-let html4 = info.map((item) => {
-  {
-    let p = document.createElement("p");
-    p.append(item.txt);
-    p.setAttribute("data-ref", item.id);
-    return p;
-  }
-});
-four.append(...html4);
+// let four = document.querySelector(".four");
+// let html4 = info.map((item) => {
+//   {
+//     let p = document.createElement("p");
+//     p.append(item.txt);
+//     p.setAttribute("data-ref", item.id);
+//     return p;
+//   }
+// });
+// four.append(...html4);
 
 /* 
 The same process can be done using the createElement method and wrapping everything inside a documentFragment. The documentFragment holds all the new HTML in memory and is used to transport all the new HTML to the page. Once the new HTML has been loaded in the page, the documentFragment removes itself and leaves behind the new HTML.
@@ -601,5 +601,152 @@ In the list below there are a series of property pairs. The first properties wil
 
 The second property will return a list of Element Nodes or a single Element Node.
 
+node.childNodes v node.children
+node.firstChild v. node.firstElementChild
+node.lastChild v. node.lastElementChild
+node.nextSibling v. node.nextElementSibling
+node.previousSibling v. node.previousElementSibling
+node.parentNode v. node.parentElement
+
+These last three node properties return a single piece of information about the node.
+
+node.nodeName; //returns the tagname, if an element node
+node.nodeType; //returns the integer referencing the type of node. Eg: 1=element, 3=text
+node.nodeValue; //returns the string inside a text node
 
 */
+
+//side brain dump
+
+let nodeExampleBox = document.createElement("div");
+nodeExampleBox.style.width = "200px";
+nodeExampleBox.style.height = "100px";
+nodeExampleBox.style.border = "1px solid black"; // Initial border style
+
+// Change border color on mouseover
+nodeExampleBox.addEventListener("mouseover", () => {
+  nodeExampleBox.style.border = "3px solid red"; // Hover effect border
+});
+
+// Reset to original border on mouseout
+nodeExampleBox.addEventListener("mouseout", () => {
+  nodeExampleBox.style.border = "1px solid black"; // Reset back to initial style
+});
+
+document.body.appendChild(nodeExampleBox);
+
+let cubeone = document.createElement("div");
+cubeone.style.border = "1rem solid white";
+document.body.appendChild(cubeone);
+
+let cubetwo = document.createElement("div");
+cubetwo.style.border = "1rem solid white";
+document.body.appendChild(cubetwo);
+
+let cubethree = document.createElement("div");
+cubethree.style.border = "1rem solid white";
+document.body.appendChild(cubethree);
+
+let getAllCubes = document.querySelectorAll("div");
+
+getAllCubes.forEach((cube) => {
+  cube.addEventListener("click", (e) => {
+    getAllCubes.forEach((cube) => {
+      cube.style.width = "100px";
+      cube.style.height = "100px";
+      cube.style.margin = "10px";
+      cube.style.backgroundColor = "lightblue";
+    });
+  });
+});
+
+let text1 = document.createElement("p");
+let text2 = document.createElement("p");
+let text3 = document.createElement("p");
+
+let getAllMyText = [text1, text2, text3];
+
+getAllMyText.forEach((p) => {
+  p.textContent = "some text in a p";
+  p.style.color = "red";
+  document.body.appendChild(p);
+});
+
+function testFetch() {
+  fetch("https://jsonplaceholder.typicode.com/posts/10")
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Test fetch data:", data);
+
+      //textcontent method:
+      // // Create <h1> for the title and <p> for the body
+      // let objTitle = document.createElement("h1");
+      // let objBody = document.createElement("p");
+
+      // // Set the text content of the elements
+      // objTitle.textContent = data.title;
+      // objBody.textContent = data.body;
+
+      // // Append the elements to the document body
+      // document.body.appendChild(objTitle);
+      // document.body.appendChild(objBody);
+
+      //InnerHTML:
+      let lorem = document.createElement("div");
+
+      let objHTML = `
+<h1>${data.title}</h1>
+<p>${data.body}</p>
+
+`;
+
+      lorem.innerHTML = objHTML;
+
+      document.body.appendChild(lorem);
+    })
+    .catch((err) => {
+      console.error(`Fetch error: ${err}`);
+    });
+}
+
+testFetch();
+
+let gearName = "Ski boots";
+
+//create parent elements
+let floatingMenu = document.createElement("div");
+
+//create chidlren elements
+let subMenuContent = document.createElement("p");
+let closeFloatingMenu = document.createElement("button");
+
+//write to elements
+closeFloatingMenu.textContent = "X";
+subMenuContent.textContent = `${gearName}`;
+
+//style elements
+floatingMenu.style.border = "0.2rem solid black";
+floatingMenu.style.display = "flex";
+floatingMenu.style.justifyContent = "space-between";
+floatingMenu.style.alignItems = "center";
+floatingMenu.style.padding = "1rem";
+floatingMenu.style.width = "1rem";
+closeFloatingMenu.style.color = "red";
+closeFloatingMenu.style.width = "200px";
+
+closeFloatingMenu.addEventListener("click", (e) => {
+  //toggle visibility by setting none or block
+  if (closeFloatingMenu.style.display === "none") {
+    closeFloatingMenu.style.display === "block";
+  } else {
+    closeFloatingMenu.style.display === "none";
+  }
+});
+
+//append elements
+floatingMenu.append(closeFloatingMenu, subMenuContent);
+document.body.appendChild(floatingMenu);
