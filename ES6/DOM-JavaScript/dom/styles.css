@@ -1,3 +1,9 @@
 html {
   background-color: greenyellow;
 }
+
+.highlight {
+  background-color: yellow; /* Changes background color */
+  color: red; /* Changes text color */
+  font-weight: bold; /* Makes text bold */
+}

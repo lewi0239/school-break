@@ -753,4 +753,49 @@ document.body.appendChild(floatingMenu);
 
 /* Handling Events*/
 
+/* 
+Events
+In JavaScript, an event is something that happens to an object.
+
+Objects have property values, which are values that can be used to describe an object. Property values can be things like size, speed, colour, name, id, etc. String.prototype.length is an example of what are generally referred to as a property.
+
+Objects have methods, which are functions that belong to the object that make something happen. It could be something that the Object can do or something that the object does to another Object. Methods are also properties but are just called methods. Array.prototype.sort() is an example of a method. You can usually tell the difference between them in your code by the parentheses that appear after the name of the method. Properties don't have parentheses.
+
+Events are things that happen to an object. A webpage loads. An anchor tag is clicked. A form is submitted. load, click, and submit are all examples of events.
+
+*/
+
 //on Pointer and Touch Events
+
+/* Adding and Removing Events
+All HTML DOM Element Nodes have a built-in addEventListener method. The standard way to add an event to a DOM element is like this:*/
+
+let masthead = document.querySelector(".masthead");
+masthead.textContent = "Title for ev example";
+// document.body.append(masthead);
+
+masthead.addEventListener("click", doSomething);
+
+function doSomething(e) {
+  let target = e.target;
+  target.classList.add("higlight");
+}
+
+let countsBox = document.createElement("p");
+document.body.append(countsBox);
+
+let counter = 0;
+countsBox.textContent = `This number will increase, presently at: ${counter}`;
+
+countsBox.addEventListener("click", () => {
+  counter++;
+  countsBox.textContent = `This number will increase, presently at: ${counter}`;
+});
+
+let tenbox = document.querySelector("#ten");
+let tenCounter = 10;
+tenbox.addEventListener("click", (e) => {
+  e.preventDefault();
+  tenCounter *= 10;
+  console.log(`Counter Value for tens: ${tenCounter}`);
+});
