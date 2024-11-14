@@ -750,3 +750,7 @@ closeFloatingMenu.addEventListener("click", (e) => {
 //append elements
 floatingMenu.append(closeFloatingMenu, subMenuContent);
 document.body.appendChild(floatingMenu);
+
+/* Handling Events*/
+
+//on Pointer and Touch Events
