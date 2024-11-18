@@ -58,7 +58,7 @@ Everything you do in the browser, which is not part of core JavaScript, exists i
 
 */
 
-window.alert("Hello user");
+// window.alert("Hello user");
 
 /* 
 Nodes and Elements
@@ -799,3 +799,114 @@ tenbox.addEventListener("click", (e) => {
   tenCounter *= 10;
   console.log(`Counter Value for tens: ${tenCounter}`);
 });
+
+let myMovies = [
+  {
+    title: "First Movie Name",
+    Genre: "Action",
+    length: 120,
+  },
+  {
+    title: "First Movie Name",
+    Genre: "Action",
+    length: 120,
+  },
+];
+
+myMovies.forEach((index) => {
+  let movieTitle = document.createElement("h1");
+  let movieGenre = document.createElement("p");
+  let movieLength = document.createElement("p");
+
+  movieTitle.textContent = `index.title`;
+  movieGenre.textContent = `Genre: ${index.Genre}`;
+  movieLength.textContent = `Movie Length: ${index.length}`;
+
+  document.body.append(movieTitle, movieGenre, movieLength);
+});
+
+for (let movie in myMovies) {
+  console.log(`${myMovies[movie].Genre}`);
+}
+
+let actionMovies = myMovies.filter(
+  (action) => action.Genre.toLowerCase() === "action"
+);
+
+let getMovieLengthLessThan120 = myMovies.sort((i) => i.length <= 120);
+
+//(let i = 0; i <= 100; i++)
+//(let i = x; x <=100; i++)
+//(let i = 100; i >=0; i--)
+
+/* Callback Functions:
+
+Callback Functions
+A callback function is just a regular function, like any function that you have written so far. What makes a function into a callback function is simply how you use it.
+
+When you pass a function reference to a second function so that it can be called, from inside the second function, after the rest of the second function code is complete, then the function reference being passed in is called a callback function
+
+*/
+
+function myCallBack() {
+  console.log(`this is the callback`);
+}
+
+function countToTen(cb) {
+  for (let i = 1; i <= 10; i++) {
+    console.log(i);
+  }
+  cb();
+}
+
+countToTen(myCallBack);
+
+/* 
+
+Higher Order Functions:
+Functions in JavaScript are called first-class objects because they can be passed around just like any other variable. We can pass a function reference to another function, like we do for callback functions. We can also return a function from a function.
+
+
+*/
+
+function f1() {
+  console.log("this is function f1");
+  return function () {
+    console.log(`this is an anonymous function`);
+  };
+  return 42;
+}
+
+const f2 = f1();
+
+let num = f2();
+
+console.log(num);
+
+// Recursive Functions:
+
+function it() {
+  it();
+}
+
+it();
+
+/*  
+This and Context
+The keyword this can be a confusing one in JavaScript. It is typically a reference to the object that made a function run.
+
+For the purposes of this discussion we will limit the use of this to functions triggered by event listeners.
+
+*/
+
+let btn1 = document.getElementById("myButton");
+let btn2 = document.querySelector(".btn");
+let btn3 = document.querySelector("#otherButton");
+
+btn1.addEventListener("click", makeNoisy);
+btn2.addEventListener("click", makeNoisy);
+btn3.addEventListener("click", makeNoisy);
+
+function makeNoisy(ev) {
+  this.style.backgroundImage = "url(./img/noisy-pattern.png)";
+}
