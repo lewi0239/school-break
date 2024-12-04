@@ -910,3 +910,71 @@ btn3.addEventListener("click", makeNoisy);
 function makeNoisy(ev) {
   this.style.backgroundImage = "url(./img/noisy-pattern.png)";
 }
+
+/* 
+Prototypes
+Every type of Object has a prototype. A prototype is a special kind of an object that contains all the methods that will be shared by all Objects of that type.
+
+You will hear a lot about prototype and class over the next few semesters. They are two different approaches to designing and architect software. The problem is that in your early days of programming they can seem like almost the same thing.
+
+We will try to help you understand the differences here in simple practical terms that will let you write better JavaScript with fewer unexpected errors.
+
+A Class is a blueprint for building objects. It is not an object itself, just the plans for building a certain kind of object. Classes inherit properties and methods from parent classes. When you create (instantiate) an object from a class, the object will be given copies all the properties and methods from it's class blueprint as well as copies of all the properties and methods from all the ancestor parent classes. So, when you call an Object's method, the method actually exists inside the Object.
+
+A prototype is an example Object. It is an Object. Think of it as the first one built. In JavaScript, when we create an Object a constructor function is used to build the object. That function has a prototype object. We can put any methods that we want to share with all the objects built with that constructor into that prototype object. We can still link our objects to parent ones but we don't copy the methods, instead, we just link to the parent's prototype. There is a chain of prototype type objects. When we create (instantiate) our Object, it doesn't need copies of all the methods and parent methods. If we call an Object's method and the method does not exist inside our Object, then JavaScript will look up the prototype chain for the method and delegate (borrow) the method to run.
+
+JavaScript has something called the prototype chain, which is how inheritance works in JavaScript. Each one of the Object prototypes will have a connection to the prototype object belonging to it's parent object. At the top of the chain is the prototype of the Object object.
+
+As an example, look at the toString() method. When you create an Array (opens new window), there is no method in Array called valueof. However, you can write the following and no error occurs.
+
+*/
+
+let letters = new Array("a", "b", "c", "d", "e");
+
+/* 
+9.1 Promises:
+
+A Promise, as the name implies is something that Promises a return value. We just don't know when we will get the reply. It could be fulfilled or it could fail to be fulfilled. Either way you will get an answer.
+
+A Promise that is fulfilled and returns what we want is called resolved.
+
+A Promise that is not fulfilled is called rejected.
+
+The syntax for a Promise is just like thee fetch method. (That is because a fetch IS a Promise.). when you call fetch() you are actually given a Promise object which eventually will give you a response object and call the first then method or it fails and calls the catch method.
+
+*/
+
+let promiseExample = new Promise(function (resolve, reject) {
+  resolve("booya");
+});
+promiseExample
+  .then(function (str) {
+    console.log(str);
+  })
+  .catch(function (err) {});
+
+let delay = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 2000, "hello");
+});
+
+delay.then(function (response) {
+  console.log(response);
+});
+
+delay.catch(function (err) {});
+
+console.log("wait for it...");
+
+/* 
+The then and catch can be added to the variable holding the Promise separately, or they can be chained together with the catch at the end of the chain.
+*/
+
+/* 
+then() and catch() and finally()
+When you create a Promise object you can chain onto it one or more then() methods. At the very end of the then() chain, you can put a catch() method.
+
+
+
+*/
+
+// You ended here: https://mad9014.github.io/W2024/modules/browser-js/week9/promises/#then-and-catch-and-finally on Dec 4 2024
