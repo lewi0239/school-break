@@ -970,9 +970,541 @@ The then and catch can be added to the variable holding the Promise separately, 
 */
 
 /* 
-then() and catch() and finally()
+then() and catch() and finally():
 When you create a Promise object you can chain onto it one or more then() methods. At the very end of the then() chain, you can put a catch() method.
 
 */
 
 // You ended here: https://mad9014.github.io/W2024/modules/browser-js/week9/promises/#then-and-catch-and-finally on Dec 4 2024
+
+new Promise((resolve, reject) => {
+  console.log("fn one");
+  resolve();
+})
+  .then(() => {
+    console.log("fn two");
+  })
+  .then(() => {
+    console.log("fn three");
+  })
+  .catch(() => {
+    console.log("Something went wrong");
+  });
+
+let promiseTest = new Promise();
+
+/* 
+
+
+Just like the Promise object itself needs a function and that function will resolve or reject, each of the then() method calls plus the catch() method call needs a function.
+
+If the function inside a then() method runs with no errors, then its return value gets passed along to the next then() method in the chain. The first return value becomes an argument for the second then(), and so on.
+
+If ANY of the functions inside ANY of the then() methods throws an error, then the Error object will be immediately passed to the catch() method and the function inside the catch will run using the Error as its argument.
+
+
+resolve() and reject():
+It is possible to create a Promise that resolves or rejects immediately. However, since Promises are asynchronous it means that the current stack finishes first. The then() method, which reads the value from the resolved or rejected promise is called asynchronously.
+
+The Promise.resolve() method returns a Promise object that has been resolved.
+
+The Promise.reject() method returns a Promise object that has been rejected.
+
+
+*/
+
+let myGoodValue = 42;
+let myBadValue = new Error("bad stuff");
+
+let good = Promise.resolve(myGoodValue);
+let bad = Promise.reject(myBadValue);
+
+/* 
+Promise.all() and allSettled():
+If you have multiple asynchronous tasks to accomplish and you want to wrap them together as a Promise you can do that. As an example - you want to fetch remote data from 4 sources or you want to open 4 files from the filesystem. Either of those things take an unknown amount of time and depend on factors that are out of your control.
+
+We can use Promise.all() or Promise.allSettled() to achieve this. Both of these methods take an Array of Promise objects and then return an Array of results to your then() method.
+
+The difference between them is that allSettled() will call the then() when every one of the Promises has a result. You don't know if the results are all resolved, all rejected, or a mixture. With all() the then() method gets called only if all the promises in the Array were resolved. As soon as one of the Promises in the Array is rejected, the catch gets called.
+
+So, it is a question of how many results do you need. If you ask for four things to work but are ok with only two or three actually working, then go ahead and use all.
+
+If your app needs all four to have been successful, then use allSettled.
+
+
+*/
+
+let p1 = new Promise((resolve, reject) => {
+  let num = Math.random();
+  if (Math.round(num)) {
+    resolve(num);
+  } else {
+    reject(num);
+  }
+});
+
+let p2 = new Promise((resolve, reject) => {
+  let num = Math.random();
+  if (Math.round(num)) {
+    resolve(num);
+  } else {
+    reject(num);
+  }
+});
+
+//test the promise.allSettled method
+Promise.allSettled([p1, p2])
+  .then((results) => {
+    console.log(results[(0, results[1])]);
+  })
+  .catch((err) => {
+    //forst failure triggers this
+  });
+
+/* 
+  
+  Promise.race() and any():
+Promise.race() and Promise.any() are very similar. They are both race conditions. They are both looking for a first Promise to be completed. They both need an array of promises to be passed in.
+
+The difference is that race is looking for the first one to complete, regardless whether it is resolve or reject, and any is looking for the first successful result. The any approach will only run the catch if all of the promises in the array are rejected.
+  
+  */
+
+/* 
+
+let p1 = new Promise((resolve, reject) => {
+  reject(1);
+});
+let p2 = new Promise((resolve, reject) => {
+  resolve(2);
+});
+race gives us the first result back... good or bad
+Promise.race([p1, p2])
+  .then((response) => {
+    console.log('First one back was successful');
+  })
+  .catch((err) => {
+    console.log('First one back was rejected');
+  });
+
+any only runs the catch if all the promises failed
+Promise.any([p1, p2])
+  .then((response) => {
+    console.log('First successful result is back');
+  })
+  .catch((err) => {
+    console.log('no successful results');
+  });
+
+
+*/
+
+/* 
+Error Handling with Promises
+When you have a Promise followed by chain of then methods an error could occur at any point in that chain of methods. If it does, then the error will be passed to the catch at the end of the chain.
+
+Best Practice
+
+You should always put a catch at the end of your promise chain.
+
+In NodeJS, not doing this will cause an error.
+
+*/
+
+// 9.2 Asynchronous Code
+
+/* 
+
+Async vs Sync
+Almost all the code that we have written to this point has been synchronous code. That means that you write the code in the order that you expect it to run. The first line of code inside your function will run and complete before the second line of code.
+
+However, there is also Asynchronous code in JavaScript. Promises are an example of this.
+
+When you write code that will take an unknown amount of time to complete but you don't want your App to freeze and do nothing until that one task is complete, then you need to use Async tasks.
+
+JavaScript has a mechanism known as the event loop. When you pass a list of commands to the event loop, it will keep running each of those commands in order until it gets to the end of your list. This list is known as the main stack. JavaScript keeps trying to run commands as long as there is something on the main stack.
+
+However, sometimes there is a command that would stop the event loop from getting to the next command. It gets blocked from going to the next command in the stack. These types of commands are things that take a long time to complete, like talking to a database, or the file system, or a network request for a file, or a timer that needs to wait before running.
+
+There are specific tasks that are going to take too long and they get put into a secondary area so they can wait for their result. These tasks are known as asynchronous.
+
+If the code stays on the main stack and insists on being run before the event loop moves on to the next item then it is called synchronous.
+
+
+
+*/
+
+/* 
+
+The JavaScript Loop
+The JavaScript engines, like Chrome's V8, use a single thread to process all your code. It builds a stack of commands to run, in the order that you have written them. As long as each command belongs to the CORE JavaScript then it gets added to the main run stack.
+
+When something that belongs to the Web APIs is encountered it gets added to a secondary list of tasks. Each time the main stack is finished then the JavaScript engine turns it attention to the secondary list of tasks and will try to run those.
+
+The video below does a great job explaining all the parts of this process. It is about 25 minutes so give yourself some time to watch it.
+
+You don't need this information to do any of the assignments this semester. However, it will help you to avoid errors in your code and to better understand how your code will be interpreted by the JavaScript engine. This will lead to you writing much better code in the long run.
+
+
+The main stack is all the code that runs on the event loop. JavaScript wants to run all the commands in the main execution context before it does anything with the tasks or microtasks.
+
+The UI render tasks are the one exception to leaving the event loop. The browser can decide to exit the loop and run updates (calculate and paint) for the UI. UI render tasks are mainly automatic things like updating the interface based on a CSS transition or animation. However, you can create code that runs during this phase with requestAnimationFrame().
+
+If you create a task and inside that task you create another task, the second one will not run until the first task is completed and the event loop has looped around again.
+
+If you create a microtask and inside that you create another microtask, then the browser will also run the subsequent microtask(s) before returning to the event loop.
+
+
+Timers
+In JavaScript we can set timers to call a function at some point in the future.
+
+We use the setTimeout() or setInterval functions and pass them a callback function plus a minimum time delay to use (written in milliseconds). We say minimum time delay because the main stack could still have code in it that is being run. The function from the timeout has to wait for that other code to finish before it can be called.
+
+*/
+
+function timeTest() {
+  console.log(`fn is running..`);
+}
+function timeTestTwo() {
+  console.log(`Hello, user`);
+}
+//function timeTestThree(timeTest, 1000){};
+
+//function timeTestThree1(timeTestTwo, 1000){}; //Dean gets passed to timeTestTwo as the argument
+
+/* 
+
+Timeouts
+When you want to run a function after a specific time delay then setTimeout is the built-in function to accomplish this.
+
+*/
+
+/* 
+
+Intervals
+When you want to run something repeatedly after a set time, for example, once every ten seconds, then setInterval is the function to call.
+
+Timers running on intervals can be stopped if you call the clearInterval( ) method. Just make sure that you keep a reference to the interval.
+
+
+*/
+
+/* 
+
+Recursive Timeouts
+Another way to approach timed intervals is with a recursive call to the setTimeout function. Inside the function that runs following your setTimeout, you make another call to the same function. The process repeats itself.
+
+The difference with the recursive calls is that it allows us to change the amount of time between the calls or stop it after any call.
+
+We can use this method to create ever shorter time spans between callbacks or random times between callbacks.
+
+
+*/
+
+/* 
+
+Async - Await
+One of the features added in ES6 was async and await. The combination of these keywords lets us use asynchronous features like fetch inside a function but write the code in a synchronous style.
+
+Start by making a function into an async one.
+
+*/
+
+//Give a functon the ability to pause a d wait for a promise:
+
+async function f9() {
+  //this function declaration can now pause and wait for a promise to complete
+}
+
+let f10 = async function () {
+  //this function expression can pause and wait for a promise to complete
+};
+
+let res = async () => {
+  //this arrow function can also pause and wait
+};
+
+//Then you can use the await keyword as many times as you want. Each one is capable of pausing the function to wait for an async result from a promise.
+
+/* 
+Intervals
+When you want to run something repeatedly after a set time, for example, once every ten seconds, then setInterval is the function to call.
+
+Timers running on intervals can be stopped if you call the clearInterval( ) method. Just make sure that you keep a reference to the interval.
+
+*/
+
+let intervalId = setInterval(myFunc, 3000);
+
+clearInterval(intervalId);
+
+/* 
+
+Recursive Timeouts:
+Another way to approach timed intervals is with a recursive call to the setTimeout function. Inside the function that runs following your setTimeout, you make another call to the same function. The process repeats itself.
+
+The difference with the recursive calls is that it allows us to change the amount of time between the calls or stop it after any call.
+
+We can use this method to create ever shorter time spans between callbacks or random times between callbacks.
+
+
+*/
+
+/* 
+
+Async - Await
+One of the features added in ES6 was async and await. The combination of these keywords lets us use asynchronous features like fetch inside a function but write the code in a synchronous style.
+
+Start by making a function into an async one.
+
+
+Then you can use the await keyword as many times as you want. Each one is capable of pausing the function to wait for an async result from a promise
+
+*/
+
+//10.1 Fetch and AJAX
+
+/* 
+
+AJAX:
+**old way**
+AJAX stands for Asynchronous Javascript And Xml.
+
+In the late nineties, it was not possible to download new data and apply that to the current webpage. If you wanted updated results you had to refresh the whole page.
+
+What we will be discussing over the new few weeks is the process of how to make requests from webpages for new data or new files from a remote webserver.
+
+It is with JavaScript that we will be requesting the new content and then injecting it into your pages.
+
+*/
+//XMLHttpRequest
+//The original way to make requests to a remote server to have files sent was an object called XMLHttpRequest.
+
+/* 
+
+
+//9.2 Asynchronous Code:
+
+/* 
+  
+Async vs Sync:
+
+Almost all the code that we have written to this point has been synchronous code. That means that you write the code in the order that you expect it to run. The first line of code inside your function will run and complete before the second line of code.
+
+However, there is also Asynchronous code in JavaScript. Promises are an example of this.
+
+When you write code that will take an unknown amount of time to complete but you don't want your App to freeze and do nothing until that one task is complete, then you need to use Async tasks.
+
+JavaScript has a mechanism known as the event loop. When you pass a list of commands to the event loop, it will keep running each of those commands in order until it gets to the end of your list. This list is known as the main stack. JavaScript keeps trying to run commands as long as there is something on the main stack.
+
+However, sometimes there is a command that would stop the event loop from getting to the next command. It gets blocked from going to the next command in the stack. These types of commands are things that take a long time to complete, like talking to a database, or the file system, or a network request for a file, or a timer that needs to wait before running.
+
+There are specific tasks that are going to take too long and they get put into a secondary area so they can wait for their result. These tasks are known as asynchronous.
+
+If the code stays on the main stack and insists on being run before the event loop moves on to the next item then it is called synchronous.
+
+
+*/
+
+/* 
+
+The JavaScript Loop
+The JavaScript engines, like Chrome's V8, use a single thread to process all your code. It builds a stack of commands to run, in the order that you have written them. As long as each command belongs to the CORE JavaScript then it gets added to the main run stack.
+
+When something that belongs to the Web APIs is encountered it gets added to a secondary list of tasks. Each time the main stack is finished then the JavaScript engine turns it attention to the secondary list of tasks and will try to run those.
+
+The video below does a great job explaining all the parts of this process. It is about 25 minutes so give yourself some time to watch it.
+
+You don't need this information to do any of the assignments this semester. However, it will help you to avoid errors in your code and to better understand how your code will be interpreted by the JavaScript engine. This will lead to you writing much better code in the long run.
+
+/*
+Fetch
+The new method that replaces XMLHttpRequest. The good news here is that if you are already familiar with the syntax for Promises then you already know most of the syntax for fetch.
+
+*/
+
+let url = `https://www.example.com/api/`;
+
+fetch(url)
+  .then((response) => {
+    if (!response.ok) throw new Error(response.statusText);
+
+    return reponse.json();
+  })
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(`You are facing this ${err}`);
+  });
+
+/*
+
+When we send a request to a webserver it can be for ANY type of file - html, xml, json, css, js, png, jpg, avi, mpg, mp3, or anything else. When you make the request you should be aware of what kind of file will be send back.
+
+In the example above we used request.json() to extract the JSON data from the response. If we were getting some other kind of text file, like CSS, HTML, or XML then we should use response.text(). If we were getting a binary file like an image or audio file then we would use response.blob() to get the binary data. Blob stands for Binary Large OBject.
+
+Regardless of whether you are using fetch or XMLHttpRequest to get the file from the server we are working with the same technology. We are making an HTTP Request, which contains headers and, potentially, a body. The request is sent to a web server over the internet and then we get back an HTTP Response, which contains headers and has a body.
+
+Think of making Request like mailing a letter to someone.
+
+The headers are the things that get written on the outside of the envelope.
+The body is the contents inside the envelope.
+Once the letter is sealed and addressed you stick it in a mail box. The postal service will take your letter, interpret what you wrote on the envelope and figure out how to get your letter to the correct address.
+The street address and city and province help you understand where you are sending your letter.
+The postal code is what the postal service actually uses to figure our how to route your letter.
+You don't need to understand how the letter gets to the other address.
+The envelope should have a return address on the outside of the envelope so that a response can be sent back to you.
+
+
+*/
+
+/* 
+
+JSON
+JSON - JavaScript Object Notation is the most popular format for sending data between clients and servers. It is called JSON because it uses a JavaScript-compatible syntax for encoding the information inside the file.
+
+Official JSON website(opens new window)
+
+However, it is NOT JavaScript. It is just a text file with a single long string. For this exact reason, we cannot save things like functions or DOM elements inside of JSON files. We can only save String, Number, Boolean, and null (Primitive values) plus Array literals and Object literals.
+
+The JSON file format is used by localStorage and sessionStorage to hold data in the browser. More on this next week.
+
+The primary differences between a JS object and a JSON object are:
+
+All object keys must be wrapped in double quotes.
+All string values must be wrapped in double quotes.
+No trailing commas are allowed after array or object values.
+No comments are allowed in the file.
+No variable declarations.
+
+
+*/
+
+//JavaScript Object:
+
+let obj = {
+  name: "Brodie",
+  id: 123,
+  active: true,
+  courses: ["course 1", "course 2", "course 3"],
+};
+
+//JSON:
+
+/*
+{
+"name": "Brodie",
+"id": 123,
+"active": true,
+"courses": ["course 1", "course 2", "course 3"]
+}
+
+Notice all the double quotes around all the string values. No quotes around the number or boolean values.
+
+
+
+*/
+
+//XML
+
+/*
+XML - eXtensible Markup Language, created in 1998, was the first file format that was used for client-side web development for the transfer of data between clients and servers. As the name suggests, it is a MarkUp language. Angle brackets < > are used to wrap the tag names which are used to label and describe the information in the file.
+
+The most important rule for writing XML files is Human Readable.
+
+This one rule meant that XML rapidly became a very popular format with the thousands of new developers who started working in web development in the late 90s and early 2000s. The format was adopted by nearly all major software providers and is still widely used today.
+
+An example of the widespread support for XML was the Microsoft adoption of it as a wrapper for all their MS Office files in Office 2007. With this release file formats changed from .doc to .docx and .xls to .xslx and so on. The name change reflected that XML had become a core part of the file format. A .docx file is really just a .doc file, wrapped inside of an XML file and then zipped. All the new features for MS Word have been added via the XML portion of the file.
+
+JSON overtook XML as the most popular web development format during the last decade because it was Developer Readable and because the file size was noticeably smaller than XML.
+
+Here is the same data as above, as an XML file.
+
+<?xml version="1.0" encoding="utf-8" xmlns="https://com.algonquincollege/student">
+<student>
+  <name>Joanne</name>
+  <id>123</id>
+  <active>true</active>
+  <courses>
+    <course>HRT100</course>
+    <course>HRT200</course>
+    <course>HRT300</course>
+  </courses>
+</student>
+
+
+*/
+
+/* 
+
+
+Request Objects
+When you make a fetch call, very often you are only providing a URL to the method. However, the fetch method will actually create a new Request() object on your behalf, using all the default values plus your URL.
+
+If you need to you can create your own Request object
+
+
+*/
+
+let request = new Request();
+//fetch also accepts a Request object instead of a URL object or URL string.
+fetch(request)
+  .then((response) => {})
+  .then((body) => {})
+  .catch(console.warn);
+
+/* 
+  
+Body Objects
+The Body object is the container for any file or large block of data being transferred between a client and a server. Both the Response and the Request objects have a body property that is used to access the Body object.
+
+MDN reference for the body property of the Response object(opens new window)
+
+The body property can contain one of the following data types:
+
+Blob (opens new window)- for binary files like images
+BufferSource (opens new window)- like an array of data but binary
+FormData (opens new window)- generally used for the information from a form
+ReadableStream (opens new window)- large chunk of text or numerical data
+URLSearchParams (opens new window)- Query String formatted string
+USVString (opens new window)- an encoded string
+json(), text(), and blob() Methods
+When a Response comes back to the browser, to either your main script or a service worker, the most common datatypes that we receive are:
+
+a json file
+a text file (CSS, XML, or HTML)
+an image (Blob)
+Because of that, there are three specific methods that we can use to extract the contents of those files, from the body of the Response. We use the Response.json() method to convert the contents of the JSON file into a JavaScript Object. We use the Response.text() method to read the contents of the CSS, XML, or HTML file into a string. We use the Response.blob() method to extract the binary data from a binary file (like an image) into a Blob object.
+
+All three of the methods are asynchronous and return a Promise. So, we use them inside a then() method and return the Promise that they create. That way it gets passed to the next then() in the chain. The next then() will receive the Object, String, or Binary content from the method.
+  
+  */
+
+fetch(request)
+  .then((response) => {
+    //only the first return actually runs
+    return response.text();
+    return response.blob();
+    return response.json();
+  })
+  .then((body) => {
+    //body is the formatted contents returned from one of those methods
+  });
+
+//If we want to use the Blob as the source for an image element on our page then we need to use the URL.createObjectURL() method.
+
+document.getElementById("dynamicImage").src = URL.createObjectURL(blob);
+
+/* 
+
+It is worth noting that there is also a formData() method that will extract the text from the body as if it were a FormData object. Also, you have an arrayBuffer() method available to use if you want the file contents as an ArrayBuffer instead of a Blob.
+
+A Response object can only be used for one purpose - providing content to the webpage or saving it to the Cache API. If you need multiple copies of a response object you can use the clone() method to create that copy.
+
+Header Objects
+Inside your HTTP Request and HTTP Response, the Head holds the meta information about the request or response. What address is it being sent from, what address it is being sent to, whether it is encrypted, what type of file is contained in the body, the file size of the body, the encoding type, if it is compressed, cookies, what is the expiry date of the response, and much more. All the values in the Head are called Headers.
+
+The QueryString is one of the Headers. It is a string that contains a series of name value pairs. There is an = sign between each name and value. And there is an & ampersand between each of the pairs. The values in the QueryString need to be URL encoded to avoid causing issues with other programs, through special characters, who mi
+
+*/
