@@ -973,8 +973,6 @@ The then and catch can be added to the variable holding the Promise separately, 
 then() and catch() and finally()
 When you create a Promise object you can chain onto it one or more then() methods. At the very end of the then() chain, you can put a catch() method.
 
-
-
 */
 
 // You ended here: https://mad9014.github.io/W2024/modules/browser-js/week9/promises/#then-and-catch-and-finally on Dec 4 2024
