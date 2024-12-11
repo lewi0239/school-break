@@ -1508,3 +1508,234 @@ Inside your HTTP Request and HTTP Response, the Head holds the meta information 
 The QueryString is one of the Headers. It is a string that contains a series of name value pairs. There is an = sign between each name and value. And there is an & ampersand between each of the pairs. The values in the QueryString need to be URL encoded to avoid causing issues with other programs, through special characters, who mi
 
 */
+//you ended here: https://mad9014.github.io/W2024/modules/browser-js/week10/ajax/#body-objects
+const BASEURL = "http://somedomain.com";
+//a global variable that holds the base url for your API
+
+let endpoint = "/api/people/23?api-key=8768374823";
+let url = new URL(endpoint, BASEURL);
+//first we have a url object to pass to a Request or fetch call.
+
+let str = url.toString();
+//here we have a String built from the url object
+
+let req = new Request(url);
+// OR
+req = new Request(str);
+//here we have a Request object with the url inside it
+
+fetch(url).then((resp) => {
+  //we can pass a url directly to fetch
+  console.log("fetch with url", resp.status);
+});
+
+fetch(req).then((resp) => {
+  //we can pass the request object that was given a url or string
+  console.log("fetch with url in request", resp.status);
+});
+
+fetch(str).then((resp) => {
+  //we can pass the string to the fetch
+  console.log("fetch with url as string", resp.status);
+});
+
+/* 
+
+The URL property of a Request or Location object, just like the URL object itself has a bunch of properties that you can access to directly read the different parts of a URL. (Otherwise you would have to parse the string yourself.)
+
+hash is the part that begins with #.
+host is a hostname with a port (if specified).
+hostname is the host without the port.
+href is the entire url string with all the parts.
+origin includes the scheme, domain, and port.
+pathname is the path and filename starting with /.
+port is the port number part of the url. Eg: 80 or 5500.
+protocol is the scheme, like http:, ftp:, https:, blob:, or file:.
+search is the querystring for the url and is either an empty string or includes the ? at the start.
+searchParams is a read-only SearchParams object with the elements in the querystring.
+
+
+*/
+
+/* 
+
+FormData Objects
+The FormData object is a great way to bundle an entire HTML form, including any hidden input elements, into a format that can be set as the value for a Request body.
+
+
+*/
+
+let myForm = document.createElement("form");
+
+let fd = new FormData(myForm);
+
+//2 lines of code and your entire form is bundled and ready to be uploaded.
+
+/* 
+
+URLSearchParams
+The URLSearchParams object is the object that can be used to hold or build a QueryString. It can also be used as an alternative to FormData when bundling data to upload to the server. It can be used as part of the URL, in the headers, or in the body.
+
+MDN reference for URLSearchParams(opens new window)
+
+It is named as URLSearchParams because it represents the value held in the search property of the Location object, which is the top-level object that holds all the information about the webpage's url, hash, protocol, port, domain, path, etc.
+
+MDN Location reference(opens new window)
+
+It works much the same way as a Headers or FormData object do.
+
+*/
+
+let searchTerm = new URLSearchParams();
+searchTerm.set("key", "value");
+searchTerm.set("name", "brodie");
+searchTerm.has("key");
+searchTerm.get("name");
+searchTerm.sort();
+searchTerm.forEach((val, key) => console.log(key, val));
+searchTerm.delete("key");
+searchTerm.toString();
+
+/* 
+
+There is also an append method that works like set but will allow for duplicate entries with the same key.
+
+It is an iterable object, which means it can be used in a for...of loop.
+
+When you want to add a URLSearchParams string to the URL or to the body, use the toString method. Remember to add the ? in front of it if you are using it as part of the URL.
+
+*/
+
+/* 
+USVString:
+
+A USVString is a Unicode Scalar Value String. Basically it is a string designed for efficient text processing. It uses UTF-16 instead of UTF-8 for the holding of string values. This means that code-points that need 16-bit values to be represented can be saved as a single character. Chinese characters and Emojis both fall into this category. JavaScript will internally handle the conversion between UTF-8 strings and UTF-16 strings when you use the USVString.
+
+When you see that a USVString is being used for an API, you can just think of it as a string that is encoded to work well in fetch calls and URLs.
+
+Fetch All Together:
+
+Now that you know all the parts of an HTTP Request, you can build your own Request object and pass it to a fetch call.
+
+The following example shows how to combine all the different parts into a Request object that gets passed to the fetch method. Only one value is being appended or added to the Headers, FormData, or URLSearchParms object for brevity's sake.
+
+
+let head = new Headers(); //`append` what you need
+head.append('x-custom-header', 'Memento');
+
+let fd = new FormData(); //`append` what you need
+fd.append('name', 'value');
+
+let search = new URLSearchParams(); //`set` what you need
+search.set('api-key', 'some-value');
+
+let baseURL = `https://www.example.com`;
+let relativePath = `./api/endpoint`;
+let url = new URL(`${relativePath}?${search}`, baseURL);
+ or new URL(path+querystring, baseurl).toString();
+call the toString method to create the DOMString to pass to the Request object
+
+let req = new Request(url, {
+  headers: head,
+  method: 'POST',
+  mode: 'cors',
+  body: fd,
+});
+
+fetch(req)
+  .then((response) => {
+    response to the fetch
+  })
+  .then()
+  .catch();
+
+
+*/
+
+//10.2 Remote APIs
+
+/* 
+
+
+
+Fetch
+
+So, now that you are aware of all the parts of the world of fetch, let's start to use the fetch() method and talk to some real APIs.
+
+There are a few ways that the initial fetch method call can be made depending on how much information you need to pass and what needs to be customized.
+
+
+1. send a string to the fetch method
+let urlString = 'http://www.example.com/api';
+fetch(urlString);
+uses GET as the default method. No extra headers set. No data being sent to the server
+
+2. send a URL object to the fetch method
+let url = new URL();
+fetch(url);
+same as version 1
+
+3. send a Request Object that contains the url
+let req = new Request(url);
+Request object can also have an options param with data and headers and non-GET method
+fetch(req);
+
+If you are only requesting to receive data from a web server (a GET request), and the server does not need an API key or any authorization headers, and no data is being uploaded then any of these can be used.
+
+It is only if you start to upload data or customize headers that you need to add a Headers object or define the body contents.
+
+*/
+//fetch chain:
+
+const urlReddit = `https://www.reddit.com/r/Miata/.json`;
+
+fetch(urlReddit)
+  .then((response) => {
+    if (!response.ok) throw new Error("data request failed");
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+/* 
+
+Github REST API
+Github Public Repo REST APIs(opens new window)
+
+Github has a number of public APIs that we can use to fetch information about Repositories or Users or more. You can make a fetch call to a url like https://api.github.com/users/prof3ssorSt3v3/repos to get a JSON file with a list of the all the repos for Steve Griffith's Github account. The URL https://api.github.com/users/maddprof1/repos returns a JSON file with a list of all the repos for Tony Davidson.
+
+So, as long as you know the username, you can get a list of all that person's public repos.
+
+Try loading either of those URLs into the browser and look at the JSON results that are displayed.
+
+Github also provides their own JavaScript library called Octokit (opens new window), which can be used to make calls to the Github APIs.
+
+With the Octokit library, instead of calling fetch, you would import the library, create an Octokit object and then call the request() method, with the desired endpoint URL.
+
+import { Octokit } from 'https://cdn.skypack.dev/octokit';
+import the Octokit function
+then create an instance of the Octokit object
+const octokit = new Octokit({}); //the {} object allows for passing in of options
+
+octokit
+  .request('GET /repos/{owner}/{repo}', {
+    owner: 'octocat', //will become the {owner} part of the url
+    repo: 'Spoon-Knife', //will become the {repo} part of the url
+    sort: 'updated',
+  })
+  .then((response) => {
+    console.log(response.status); //status code
+    console.log(response.data); //same as the data object you get in fetch from response.json()
+  });
+
+*/
+
+//11.1 Fetch
+
+//ended here https://mad9014.github.io/W2024/modules/browser-js/week11/fetch-data/#more-apis
+
+// 12/11/2024
