@@ -1739,3 +1739,34 @@ octokit
 //ended here https://mad9014.github.io/W2024/modules/browser-js/week11/fetch-data/#more-apis
 
 // 12/11/2024
+
+/* 
+
+
+11.1 Fetch
+More APIs
+Regardless of which APIs you are dealing with the process of building dynamic webpages with the data from the API will be pretty much the same.
+
+Wait for your page to finish loading
+Add event listeners to your interface that will let the user interact with your page
+Do you need the user to fill out a form before getting the data?
+Are you getting information from the querystring or hash value to add to the request?
+Does the API need any special querystring or header values like an API key?
+Do you need to register with the API for a key?
+Build a Request object that contains all the necessary information and send the request
+When the Response returns check the status code and content-type of the response.
+Extract the text() or json() from the response object.
+Use a common reusable function for building your new HTML content.
+Does your new content need an event listener? Add it to the containing element.
+Do you need to embed things like ids in the HTML? Use data- properties.
+Which approach do you want to use for building the HTML? createElement? HTML String? map() through Array?
+Is your new content replacing old content or being added?
+If adding new content, should it be at the top or bottom of the containing element?
+Answer these questions and build your code so it runs generally in this order.
+
+The way you organize this code can be done in a variety of ways, with or without modules. Namespaces are a good idea either way.
+
+
+*/
+
+//Ended here : https://mad9014.github.io/W2024/modules/browser-js/week11/fetch-data/#uploading-data-with-fetch
