@@ -1770,3 +1770,416 @@ The way you organize this code can be done in a variety of ways, with or without
 */
 
 //Ended here : https://mad9014.github.io/W2024/modules/browser-js/week11/fetch-data/#uploading-data-with-fetch
+
+/*
+
+
+let h = new Headers();
+h.append('Content-Type', 'plain/text');
+h.append('Content-Type', 'application/json');
+h.append('Content-Type', 'application/x-www-form-urlencoded');
+h.append('Content-Type', 'multipart/form-data');
+
+let req = new Request(url, {
+  headers: h,
+  method: 'POST',
+  body: YourDataVariableGoesHere,
+});
+
+
+By setting this header you are telling the web server how it should parse the data you are sending.
+
+
+
+*/
+
+/* 
+
+
+REST
+REST stands for REpresentational State Transfer. It is a term used to describe what we are calling AJAX or fetch. We are using HTTP requests to ask a web server to send us (a web client) information.
+
+REST needs there to be a client and a server.
+
+The client makes the requests and the server sends the responses.
+
+The State refers to the information, rather the current state of the information that you are requesting.
+
+the Transfer is the sending of information between the client and server.
+
+One very important aspect of the process is that neither side maintains a memory of previous requests and responses. We gain a lot of efficiency by the server not having to keep track of whether or not a particular client has made the same request previously. This lack of memory of state meant that HTTP was very durable and resilient.
+
+When you make an HTTP Request, the request is broken up into small packets. Each packet is numbered and keeps a record of the address that it came from and where it is going. Not all packets have to follow the same path. Routers all over the world are constantly trying to find the most efficient way to get information from point A to point B.
+
+When all the packets reach their destination they are reassembled in order.
+
+Now, because there is no maintaining of history of requests on the server or client, it has lead to the development of lots of other services. There are session management techniques in all the server-side programming languages to let developers keep track of users. There are also Proxy Servers and CDN (content delivery networks) that cache copies of requests and distribute copies of files across different zones so that it will be more efficient when requests are made.
+
+For example, Netflix does not have a single server that is waiting for requests for video files. They have redundant servers with copies of the content spread all over the world. When a video is trending more copies of that video file are transferred to the servers that provide content to the areas where the video is trending. This is an example of a CDN.
+
+
+
+*/
+
+/* 
+
+Service Workers
+A recent feature added in browsers are Service Workers. These are scripts that run in the browser and act like Proxy Servers. They handle all the outgoing and incoming traffic to and from your browser for a specific domain. They are able to cache copies of files in case the browser is offline.
+
+If you need to build a web app that can still run some functionality when offline then you need a Service Worker.
+
+If you need to build a web app that can coordinate user activities across multiple tabs then you probably need a Service Worker.
+
+If you want to manage caching of files on the client-side for improved performance then you should have a Service Worker.
+
+Adding Service Workers to a Website
+When you add a service worker from your script, it will typically manage all the webpages loaded from that same origin. While it is possible to use multiple service workers for a single website by putting them each in charge of their own folders (scope), this can be difficult to manage.
+
+Your service worker will be a single JS file called sw.js, placed at the root of your website.
+
+From your own main.js file, you can register the service worker to be in control of the web pages for the current origin. Any time a web page from that origin is loaded on the user's browser, the service worker will automatically start up and oversee all communications from the web page to any web server.
+
+
+
+*/
+
+//main.js
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").then(() => {});
+}
+
+/* 
+
+Basic Events in Service Workers
+Inside the Service worker file sw.js there are four events that we will listen for - install, activate, fetch, and message.
+
+Since service workers are a different execution context than web pages themselves, they don't use the window or document objects. To add the event listeners we use self to refer to the worker.
+
+sw.js
+
+self.addEventListener('install', (ev) => {
+  console.log('service worker has been installed.');
+});
+
+self.addEventListener('activate', (ev) => {
+  console.log('service worker has been activated.');
+});
+
+self.addEventListener('fetch', (ev) => {
+  console.log('web page has requested a file.');
+  this event fires for EVERY FILE REQUEST
+  images, html, json, css, fonts, etc
+});
+
+self.addEventListener('message', (ev) => {
+  console.log('service worker has received a message.');
+});
+
+
+*/
+
+//11.2 API Security
+
+/* 
+
+Cookies
+Cookies have been available as Strings that get created and passed with HTTP Requests and Responses since the early days of the web. In the Requests and Responses, they are sent as a Header value.
+
+Practically every request that the browser makes for any file will have the cookie header sent along with the request.
+
+In the browser they are stored inside document.cookie. We will use document.cookie to both get and set the values of cookies.
+
+
+'key=value;path=/;domain=localhost;max-age=30000;secure;samesite';
+
+Just like localStorage there is a key and a value. The value must be URL encoded, just like values you put in the queryString.
+
+
+Path
+Be default, cookies apply to the root folder of your website. However we can add to this path value to restrict the cookies to a smaller part of our website.
+
+Path
+Be default, cookies apply to the root folder of your website. However we can add to this path value to restrict the cookies to a smaller part of our website.
+
+Domain
+By default, the domain value will be the domain of the HTML file. However, we can restrict it further to a specific subdomain if we want.
+
+Max-Age
+The max-age part of the cookie String will be the number of seconds that the cookie is to be considered valid.
+
+Secure
+If the secure value exists it means the cookie can only be accessed or set over https.
+
+Same-site
+If the same-site value exists then the cookie is only to be sent with requests for files that are going to the same domain as the original HTML file.
+
+MDN Reference for document.cookie
+
+Headers
+The full notes about how to work with Headers are back in Module 10.1.
+
+Headers are included as a topic under security because you will often have to include your API Key as a header. It depends on who designed the API. They might want the API Key in the querystring. They might want it as a Header entry. They might want a value in the querystring plus a header entry.
+
+When you start to work with JSON Web Tokens (JWT), you will be passing a JSON String that has been encoded as a base-64 string through a header called Authentication. You will also be reading the header when it gets sent from the server.
+
+The Authentication server is also used, less commonly, for other types of authorization methods like username-password.
+
+
+*/
+
+/* 
+CSP
+There is a meta tag that you should put into ALL your websites and web apps and hybrid apps. It is a security feature to protect your users.
+
+It has the http-equiv attribute set to Content-Security-Policy and then a content attribute with all the possible values of where the browser is allowed to load different types of resources from.
+
+<meta http-equiv="Content-Security-Policy" content="default-src https: ;" />
+The value inside content is broken up into different categories like default-src, img-src, style-src, font-src, media-src, and connect-src. After each category name you put one or more values for allowed sources for that type of content. After each source list you put a semi-colon.
+
+The http-equiv attribute means that this is actually a header that could be sent from the server too.
+
+See the CSP website for the full list of categories and values. CSP website official reference
+
+*/
+
+/* 
+
+CORS
+CORS stands for Cross-Origin Resource Sharing. It refers to the process by which the browser can make HTTP Requests to load an HTML file from one domain and then other things like images, fonts, stylesheets, and scripts from different domains.
+
+If the browser is making the request based on what it read in an HTML or CSS file then this can be done freely.
+
+If the cross-domain request is coming from some JavaScript code then there are restrictions in place.
+
+JavaScript can use the Fetch API or XMLHttpRequestobjects to make requests for resources like XML, JSON, text, images, stylesheets, fonts, videos, audio files, etc. However, we have to follow a restrictive list of rules to be able to make those requests.
+
+
+Headers
+When you configure the fetch( ) call with the Request and Headers objects to request a resource on a different server the only predefined headers that can be set are: Accept, Content-Type, Accept-Language, and Content-Language. No other headers can be altered for a CORS request. You can add your own custom headers like X-Steve-Is-Awesome without impacting CORS.
+
+Accept tells the server what types of files you are willing to accept as a response. Content-type tells the server what type of file you are sending. The only three values allowed for Content-Type are text/plain, multipart/form-data, or x-www-form-urlencoded.
+
+Mode
+When using the Fetch API we can actually set the CORS mode for the request. Basically we are going to tell the server that we do or do not want to make a cross-domain request.
+
+Inside our Request options we define the mode like this:
+
+let options = {
+  method: 'GET',
+  mode: 'cors',
+};
+
+The mode can be "cors", "same-origin", or "no-cors". If we set it to "cors" then we are telling the browser to look for the proper permissions to come back from the remote webserver telling us that CORS is allowed. If we set it to "same-origin" then we are telling the browser that it should prevent the JavaScript from making calls to any domain except the one where the HTML came from. "no-cors" tries to make an opaque attempt to get external sources but does not currently work within the global scope of the page
+
+*/
+
+//12.1 Observers
+
+/* 
+
+Resize Observer
+The resize observer can be used to duplicate the same functionality as a Media Query, but the real power is being able to watch specific DOM elements instead of the whole page and see if the desired element has changed to meet a dynamic size criteria, then we can do anything we want with JavaScript. We can add or remove elements from the page. We can fetch new content. We can apply new CSS. We can rearrange our page layout entirely.
+
+The basic script works like this:
+
+
+create an observer passing in a callback function
+let observer = new ResizeObserver(handleResize);
+tell the observer what to watch
+observer.observe(document.querySelector('.something'));
+
+create your callback function
+function handleResize(entries) {
+  function will be sent an array of elements being observed
+  each entry has a `target` property that points to the observed element
+  let myelement = entries[0].target;
+  myelement.className.add('hasChanged');
+  each entry also has a `contentRect` object with width and height properties
+  console.log(entries[0].contentRect.width);
+  console.log(entries[0].contentRect.height);
+}
+
+
+*/
+
+/* 
+Intersection Observer
+
+The intersection observer is a very common observer. It is used to create effects on the page as the user scrolls. When an observed element intersects with an area of the screen, it triggers the callback and lets you run your script. Generally, the script will do something like add a css class to trigger a transition or animation. However, it could also do something like fetch new content from a remote API or the Cache.
+
+The intersection observers work in a similar way to the resize observer. You create the observer and then tell it what to watch. There will be a callback function that runs when the intersections occur. The callback function will be pass the array of elements being observed with properties about each that you can use in deciding what you want to do.
+
+The intersection observers need some extra options that you define when creating it. The first option is called root, and it defines the viewport that will be used to watch for intersections with the observed element. The second is rootMargin and lets you expand or shrink your viewport when watching for intersections. The final option is threshold and let's you define a percentage of how much of the observed element must be intersecting with the viewport before calling the callback function.
+
+set up the options
+let opts = {
+  root: null, //null means the whole screen. Otherwise it can be another element as the viewport
+  rootMargin: '0px -50px', //top-bottom and left-right values.
+  positive means bigger than viewport. negative means inset from edges
+  threshold: 0.5, //percentage of observed element inside defined area. 0.5 == 50%
+};
+create the observer with the options and callback function
+let observer = new IntersectionObserver(handleIntersect, opts);
+tell it what to observe.
+observer.observe(document.querySelector('.somediv'));
+
+
+If you want to observe many elements then just call observe on each.
+
+There is also an unobserve method that lets you remove an element from the set being observed.
+
+function handleIntersect(entries) {
+entries.forEach((entry) => {
+  for each observed item report if it is currently intersecting
+  console.log(entry.isIntersecting); boolean Value
+
+  use an if statement to do whatever you like
+  });
+  }
+
+*/
+
+/* 
+
+Mutation Observer
+The Mutation Observer will let you observe DOM elements and watch for changes to their textContent or attributes or children. It can be a useful observer to do things like highlight areas of the page when new content is added, changed, or removed.
+
+Similar to the Intersection Observer, the Mutation Observer needs a set of options
+
+
+set the options
+const opts = {
+  attributes: true, //report if attributes are changed
+  attributeFilter: ['src', 'href'], //optional list of attributes to watch
+  attributeOldValue: false; //optional. if true old value will be saved for callback function
+  childList: true, //report if children are changed
+  characterData: false, //optional. if true, will save the text for the callback function
+  characterDataOldValue: false; //optional. if true old text value will be saved for callback function
+  subtree: false, //report if elements further down in the descendent tree are changed
+  this last one, pluse the characterData ones can come with a performance hit.
+};
+
+create the observer object with callback function and options
+let observer = new MutationObserver(handleMutation, opts);
+add the element(s) you want to watch
+observer.observe(document.querySelector('.somediv'));
+
+You can add more elements by calling observe() again to add other elements to the observed set. You can always call unobserve() to remove elements from the observed set.
+
+function handleMutation(mutations) {
+  entries is the list of _MUTATED_ observed elements
+  each will have a `type` property that indicates which type of mutation it is
+  switch (mutations[0].type) {
+    case 'childList':
+      a child element was mutated
+      console.log(mutations[0].target);
+      old and new values might be available if set in options
+      break;
+    case 'attributes':
+      attribute was changed
+      console.log(mutations[0].target);
+      we can find out which attribute was mutated
+      console.log(mutations[0].attributeName);
+      plus the old and new values if set in options
+      break;
+    default:
+    subTree mutation
+  }
+}
+
+
+*/
+
+/* 
+
+JS Classes
+JavaScript does not have actual "classes" like languages such as Swift, Kotlin, C++, C#, etc. JavaScript uses prototypes to define how object properties and methods are shared through inheritance.
+
+However, because of 20 years of confusion over how the keyword `this` works, a desire to standardize the syntax for creating new objects, plus due to the number of developers coming to JavaScript from other languages in the last 10 years, a `class` keyword was added. A syntactic sugar was added to JavaScript that lets developers create objects with a class-like syntax.
+
+If you want to create an Object in JavaScript there are a number of ways that you can do this.
+
+*/
+
+// An object literal
+// Just write what you want as the prop and use the default values for all property descriptors
+let objLiteral = { id: 4734911, name: "brodie" };
+
+// Object.create method
+// Pass in a prototype object and a properties object
+let someobj = {}; // Define a valid prototype object
+let myCreatedObject = Object.create(someobj, {
+  id: { value: 123, writable: true, enumerable: true, configurable: true },
+  name: {
+    value: "brodie",
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  },
+});
+
+// A constructor function
+// When calling a function with 'new' the return value will be your new object
+// CANNOT do this with an ARROW function
+function myObjBuilder() {
+  this.id = 123;
+  this.name = "brodie";
+}
+
+let constructedObj = new myObjBuilder();
+
+/* 
+
+You can then extend the functionality of any object by using the prototype keyword to add methods to the prototype object.
+
+*/
+
+myObjBuilder.prototype.someMethod = function () {
+  console.log("This is a method on the prototype of myObjBuilder.");
+};
+
+// myCreatedObject does not have a direct prototype to add methods
+// Use the object constructor prototype for safety if necessary
+someobj.someMethod = function () {
+  console.log("This is a method on the prototype of someobj.");
+};
+
+// Fixing the typo for objLiteral
+// objLiteral doesn't have a constructor, so this will throw an error
+// Correct way to extend objLiteral functionality:
+objLiteral.someMethod = function () {
+  console.log("This is a method on objLiteral.");
+};
+
+/* 
+
+In recent years, the class keyword was added to JavaScript as a syntactic sugar. This was an attempt to standardize (yet again) the way that objects are created in JavaScript and to make the language appear more familiar to the many developers migrating to JavaScript from other languages.
+
+*/
+
+class MyObjType {
+  constructor() {
+    this.id = 123;
+    this.name = "brodie";
+  }
+
+  someMethod() {
+    console.log("This is a method inside the MyObjType class.");
+  }
+}
+
+let myClassObj = new MyObjType();
+myClassObj.someMethod(); // Call the method to test
+
+/* 
+
+
+By using the class keyword we can build their constructors, define their properties and define their prototype methods in a more predictable way. This does not stop JS using the prototype chain or change how anything happens internally.
+
+You will still use the Object literal syntax for 80%+ of what you do with objects in JavaScript. The class syntax just gives you an alternative standard to follow when things become more complex.
+
+*/
+
+//12.2 Spread, Destructuring, and Enumeration
+// Ended here on 12/17/24 url: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#spread-rest-syntax
