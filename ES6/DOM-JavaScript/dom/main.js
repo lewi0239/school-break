@@ -877,19 +877,7 @@ function f1() {
   return 42;
 }
 
-const f2 = f1();
-
-let num = f2();
-
-console.log(num);
-
 // Recursive Functions:
-
-function it() {
-  it();
-}
-
-it();
 
 /*  
 This and Context
@@ -898,17 +886,42 @@ The keyword this can be a confusing one in JavaScript. It is typically a referen
 For the purposes of this discussion we will limit the use of this to functions triggered by event listeners.
 
 */
+// Create a container for buttons
+let btnContainer = document.createElement("div");
 
+// Create and configure buttons
+let setBtn = document.createElement("button");
+setBtn.id = "myButton";
+setBtn.textContent = "Button One";
+
+let setBtnTwo = document.createElement("button");
+setBtnTwo.className = "btn";
+setBtnTwo.textContent = "Button Two";
+
+let setBtnThree = document.createElement("button");
+setBtnThree.id = "otherButton";
+setBtnThree.textContent = "Button Three";
+
+// Append buttons to the container
+btnContainer.append(setBtn, setBtnTwo, setBtnThree);
+
+// Append container to the body
+document.body.appendChild(btnContainer);
+
+// Select buttons
 let btn1 = document.getElementById("myButton");
 let btn2 = document.querySelector(".btn");
 let btn3 = document.querySelector("#otherButton");
 
+// Add event listeners
 btn1.addEventListener("click", makeNoisy);
 btn2.addEventListener("click", makeNoisy);
 btn3.addEventListener("click", makeNoisy);
 
+// Event handler function
 function makeNoisy(ev) {
-  this.style.backgroundImage = "url(./img/noisy-pattern.png)";
+  this.style.backgroundImage =
+    "url('school-break/ES6/DOM-JavaScript/pics/cube.webp')";
 }
 
 /* 
@@ -1513,10 +1526,10 @@ const BASEURL = "http://somedomain.com";
 //a global variable that holds the base url for your API
 
 let endpoint = "/api/people/23?api-key=8768374823";
-let url = new URL(endpoint, BASEURL);
+let urlOne = new URL(endpoint, BASEURL);
 //first we have a url object to pass to a Request or fetch call.
 
-let str = url.toString();
+let str = urOne.toString();
 //here we have a String built from the url object
 
 let req = new Request(url);
@@ -1524,7 +1537,7 @@ let req = new Request(url);
 req = new Request(str);
 //here we have a Request object with the url inside it
 
-fetch(url).then((resp) => {
+fetch(urlOne).then((resp) => {
   //we can pass a url directly to fetch
   console.log("fetch with url", resp.status);
 });
@@ -2183,3 +2196,44 @@ You will still use the Object literal syntax for 80%+ of what you do with object
 
 //12.2 Spread, Destructuring, and Enumeration
 // Ended here on 12/17/24 url: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#spread-rest-syntax
+
+/* 
+Spread & Rest Syntax
+The spread and rest syntax use the same characters ... and can be seen as two parts of the same functionality.
+
+Spread
+
+When you want to turn an object or array into a series of separate values you can use the spread syntax.
+
+If you have a function that is expecting individual values and you have them in an array, then you can use spread to turn the array into separate values.
+
+*/
+
+//1. a function is expecting 3 arguements
+
+function f1(a, b, c) {
+  //pass in three numbers
+}
+
+let numbers = [12, 34, 56];
+
+//spread the array out into 3 values when passing
+f1(...numbers);
+
+console.log(f1);
+
+let firstNames = ["lewis", "berry", "len", "john"];
+let lastNames = ["brodie", "don", "Richard", "Summers"];
+
+let fullNames = [...firstNames, ...lastNames];
+
+console.log(fullNames);
+
+/* 
+Rest
+The rest syntax will take an unlimited number of arguments that are passed to a function and gather them as a single array.
+
+
+*/
+
+//12/18/2024 ended here: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#rest
