@@ -2237,3 +2237,85 @@ The rest syntax will take an unlimited number of arguments that are passed to a 
 */
 
 //12/18/2024 ended here: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#rest
+
+/* 
+
+Destructuring
+Destructuring is similar to the rest and spread syntax but it is more targetted and has some really helpful uses for developers. You can destructure both Arrays and Objects. It is often done as part of a function declaration where you want to extract from the object or array being passed to your function.
+
+The basic idea behind destructuring is:
+
+you declare one or more variables
+those variables are targeting, interrogating, and extracting specific parts of what is being assigned to your variable(s).Desctruc
+
+*/
+
+let movieList = ["Prometheus", "Covenant", "Alien", "Aliens"];
+let movie = {
+  title: "Prometheus",
+  year: 2012,
+  director: "Ridlet Scott",
+  starring: "Noomi Rapace",
+};
+
+//basic array destructuring
+
+let [first, second, ...therest] = movieList;
+//we now have 3 variables first=Prometheus, second=Covenant, therest=['Alien', 'Aliens']
+
+//base object destructuring
+({ title, year } = movie);
+
+/* 
+
+If you are destructuring an array then you use let [] and put your new variable names inside the square brackets. The rest syntax is used to grab everything else from the array, which is not assigned to a variable.
+
+If you are destructuring an object then you use let {} and put the names of the properties that you want to extract. New variables named the same as the properties are created. You can use the rest syntax here too.
+
+We can also do this with function declarations. Let's say that we want to pass our myObj object from above to a function.
+
+
+*/
+
+function getMovieInfo({ director, year }) {
+  //we are extracting the director and year props
+  //from the object being passed to this function
+}
+
+function getMovieRatingInfo({ director, year, rating = 0.0 }) {
+  //same as f1 except we are trying to extract a property called `rating`
+  //if `rating` doesn't exist then we give it a default value of 0.0
+}
+
+function getMovieReleasedInfo({
+  director,
+  year: released,
+  rating: rate = 0.0,
+}) {
+  //same as f2 except we want to rename a couple props.
+  // year will be extracted and renamed as `released`.
+  // rating will be extracted and renamed as `rate`.
+  //If `rating` was undefined then 0.0 will be assigned to `rate`.
+}
+
+/* 
+
+There will be times when you have a couple variables and you need to swap the values in them. Normally, you would need to create a temp variable to trade the values. Here is the standard example:
+
+
+*/
+
+let ax01 = 99;
+let bx01 = 66;
+
+//trade the values in the variables ax01 and bx01
+
+let tempMem = ax01;
+
+ax01 = bx01;
+bx01 = tempMem;
+
+//It requires three lines of code including the creating of the emp variable
+// with destructuring we can replace those last 3 lines with one with line of code
+
+[ax01, bx01] = [bx01, ax01];
