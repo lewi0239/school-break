@@ -2321,3 +2321,31 @@ bx01 = tempMem;
 [ax01, bx01] = [bx01, ax01];
 
 //no 'let' needed because both variables are already declared
+
+let investment = {
+  symbol: "",
+  Company_Name: "",
+  Exchange: "",
+  Top_Three_holders: ["", "", ""],
+
+  risk_metrics: {
+    beta: 0,
+    aplpha: 0,
+    quarterly_average: 0,
+  },
+};
+
+function getInvestmentInfo({
+  Company_Name,
+  Top_Three_holders: [first, second],
+  risk_metrics: { beta },
+}) {
+  console.log(Company_Name);
+  console.log(first);
+  console.log(second);
+  console.log(beta);
+}
+
+// last spot here Dec 20 2024: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#iteration-and-enumeration
+
+//Iteration and Enumeration
