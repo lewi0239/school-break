@@ -2319,3 +2319,5 @@ bx01 = tempMem;
 // with destructuring we can replace those last 3 lines with one with line of code
 
 [ax01, bx01] = [bx01, ax01];
+
+//no 'let' needed because both variables are already declared
