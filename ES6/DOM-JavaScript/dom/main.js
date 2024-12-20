@@ -2349,3 +2349,52 @@ function getInvestmentInfo({
 // last spot here Dec 20 2024: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#iteration-and-enumeration
 
 //Iteration and Enumeration
+
+/* 
+
+Property Descriptors
+Every property inside every object has a property descriptor called enumerable. You can think of these as a standard set of properties that exist on every Object property that you create. In the example below we have an Object that has two properties - id and email. Each of those two properties has a set of property descriptors.
+
+
+*/
+
+let myEnuObj = {
+  id: 235,
+  email: `steve@work.org`,
+};
+
+/* 
+The Property descriptors are:
+
+Accessor descriptors
+
+configurable defaults to false.
+enumerable defaults to false.
+Data descriptors
+
+value the actual value held by the property.
+writable whether the value can be changed. Defaults to true.
+get a method that will run when the value is being retrieved.
+set a method that will run when the value is being changed.
+The enumerable descriptor can be set to either true or false. If true, it means, when you do a for...in loop on that Object you will see the properties. The other properties are sort of hidden.
+
+ENUMERABLE === appears in for...in loop
+
+
+Iterable means that the object is similar to a String or an Array. Every character or item inside the object has a specific position. Think about the word hello. If you move any of the letters then it changes the meaning. The h must be in position zero. Arrays and NodeLists are the same. They have a specific order and position for everything inside of them.
+
+Most Objects are NOT iterable. Take this Object as an example:
+
+
+
+
+
+*/
+
+let anotherObj = {
+  a: 4,
+  x: true,
+  blah: `what`,
+};
+
+// end here Dec 20 24: https://mad9014.github.io/W2024/modules/browser-js/week12/destructure/#iterators
