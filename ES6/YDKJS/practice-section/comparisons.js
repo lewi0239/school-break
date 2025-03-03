@@ -19,10 +19,22 @@ function scheduleMeeting(startTime, durationMinutes) {
   return true;
 }
 
-console.log(scheduleMeeting("7:00", 15)); // false
-console.log(scheduleMeeting("07:15", 30)); // false
-console.log(scheduleMeeting("7:30", 30)); // true
-console.log(scheduleMeeting("11:30", 60)); // true
-console.log(scheduleMeeting("17:00", 45)); // true
-console.log(scheduleMeeting("17:30", 30)); // false
-console.log(scheduleMeeting("18:00", 15)); // false
+//Coercion practice!
+// console.log(scheduleMeeting("7:00", 15)); // false
+// console.log(scheduleMeeting("07:15", 30)); // false
+// console.log(scheduleMeeting("7:30", 30)); // true
+// console.log(scheduleMeeting("11:30", 60)); // true
+// console.log(scheduleMeeting("17:00", 45)); // true
+// console.log(scheduleMeeting("17:30", 30)); // false
+// console.log(scheduleMeeting("18:00", 15)); // false
+
+// console.log(undefined == 0); // ?
+// console.log(undefined === 0); // ?
+// console.log(Number(undefined)); // ?
+
+// console.log([] == 0); // ?
+// console.log([] === 0); // ?
+// console.log([1] == 1); // ?
+// console.log([1, 2] == "1,2"); // ?
+// console.log({} == "[object Object]"); // ?
+// console.log({} + []); // ?
